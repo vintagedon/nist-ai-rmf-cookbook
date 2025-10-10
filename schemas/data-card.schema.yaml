@@ -1,0 +1,638 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema#
+$schema: http://json-schema.org/draft-07/schema#
+$id: https://github.com/vintagedon/nist-ai-rmf-cookbook/schemas/data-card.schema.yaml
+title: AI Data Card Schema
+description: |
+  Defines the structure for documenting a dataset used in an AI system, including provenance, 
+  preprocessing, demographic analysis, and quality characteristics.
+  Based on NIST AI RMF documentation requirements and informed by data governance best practices.
+  
+  This schema supports the AI RMF MAP function by establishing standardized dataset documentation,
+  particularly critical for EU AI Act Article 10 (data governance) and ISO 42001 data quality requirements.
+version: 1.0.0
+type: object
+
+required:
+  - schema_version
+  - dataset_details
+  - data_provenance
+  - data_preparation
+
+properties:
+  schema_version:
+    type: string
+    description: The version of this schema specification
+    pattern: '^\d+\.\d+\.\d+$'
+    examples:
+      - "1.0.0"
+
+  dataset_details:
+    type: object
+    description: Basic identifying information about the dataset
+    required:
+      - name
+      - version
+      - owner
+      - description
+    properties:
+      name:
+        type: string
+        description: The common name of the dataset (human-readable identifier)
+        minLength: 1
+        maxLength: 200
+        examples:
+          - "ExampleCorp Policy Knowledge Base"
+          - "Fraud Transaction Dataset 2024"
+          - "Medical Image Segmentation Training Set"
+
+      version:
+        type: string
+        description: |
+          The specific version of the dataset. Use semantic versioning or date-based versioning.
+          Should uniquely identify this snapshot of the data.
+        minLength: 1
+        maxLength: 100
+        examples:
+          - "2025-Q3-snapshot"
+          - "v2.1.0"
+          - "2024-12-01"
+
+      owner:
+        type: string
+        description: The team, department, or individual responsible for the dataset's curation and maintenance
+        minLength: 1
+        maxLength: 200
+        examples:
+          - "Corporate Governance Team"
+          - "Data Engineering - Fraud Prevention"
+          - "ML Research Division"
+
+      description:
+        type: string
+        description: |
+          A clear, concise description of the dataset's content, purpose, and scope.
+          Include the type of data (text, images, tabular, etc.) and what it represents.
+        minLength: 10
+        maxLength: 2000
+        examples:
+          - "A collection of all official HR, IT, and Security policy documents, exported from Confluence."
+          - "Historical credit card transaction records from 2020-2024, including transaction metadata, merchant information, and fraud labels."
+
+      dataset_type:
+        type: string
+        description: The primary type or modality of data in this dataset
+        enum:
+          - "text"
+          - "image"
+          - "video"
+          - "audio"
+          - "tabular"
+          - "time-series"
+          - "graph"
+          - "multimodal"
+          - "other"
+        examples:
+          - "text"
+          - "tabular"
+          - "image"
+
+      dataset_size:
+        type: object
+        description: Quantitative measures of dataset size
+        properties:
+          num_instances:
+            type: integer
+            description: Total number of examples, records, or instances
+            minimum: 0
+            examples:
+              - 412
+              - 1000000
+
+          num_features:
+            type: integer
+            description: Number of features or dimensions (for structured data)
+            minimum: 0
+            examples:
+              - 45
+
+          storage_size:
+            type: string
+            description: Physical storage size of the dataset
+            examples:
+              - "2.4 GB"
+              - "150 MB"
+              - "1.2 TB"
+
+          num_chunks:
+            type: integer
+            description: Number of chunks or segments (for processed datasets like RAG knowledge bases)
+            minimum: 0
+            examples:
+              - 8924
+
+      creation_date:
+        type: string
+        format: date
+        description: Date when the dataset was created or first collected (ISO 8601 format)
+        examples:
+          - "2024-01-15"
+
+      last_updated:
+        type: string
+        format: date
+        description: Date of last modification or refresh (ISO 8601 format)
+        examples:
+          - "2024-12-01"
+
+      update_frequency:
+        type: string
+        description: How often the dataset is refreshed or updated
+        examples:
+          - "Weekly"
+          - "Monthly"
+          - "On-demand"
+          - "Static (no updates)"
+
+  data_provenance:
+    type: object
+    description: |
+      Information about the source and collection of the data.
+      Critical for data lineage, copyright compliance, and supply chain risk assessment.
+    required:
+      - source
+      - collection_method
+    properties:
+      source:
+        type: string
+        description: |
+          Where the data originated from. Be as specific as possible about the original source.
+          Include multiple sources if data is aggregated.
+        minLength: 5
+        maxLength: 2000
+        examples:
+          - "Internal ExampleCorp Confluence Space 'POLICIES'"
+          - "Kaggle Credit Card Fraud Detection Dataset (2023 version), augmented with internal transaction logs from payment processing system"
+          - "ImageNet subset (10,000 images), manually annotated by internal team"
+
+      source_url:
+        type: string
+        format: uri
+        description: URL or identifier for the data source, if publicly available
+        examples:
+          - "https://www.kaggle.com/datasets/example/fraud-detection"
+          - "https://confluence.example.com/policies"
+
+      collection_method:
+        type: string
+        description: |
+          How the data was collected, including tools, processes, and any human involvement.
+          Include information about sampling methodology if applicable.
+        minLength: 5
+        maxLength: 2000
+        examples:
+          - "Automated weekly export via Confluence API."
+          - "Transaction records extracted from PostgreSQL database via scheduled ETL job. Fraud labels added through combination of automated rules and manual review by fraud analysts."
+
+      collection_timeframe:
+        type: object
+        description: The time period during which data was collected
+        properties:
+          start_date:
+            type: string
+            format: date
+            examples:
+              - "2020-01-01"
+          end_date:
+            type: string
+            format: date
+            examples:
+              - "2024-12-31"
+
+      data_acquisition_cost:
+        type: string
+        description: Information about cost or licensing fees for acquiring the data
+        examples:
+          - "Free (internal data)"
+          - "Commercial license: $50,000/year"
+          - "Public domain"
+
+      licensing:
+        type: string
+        description: |
+          Licensing information for the dataset, including usage rights and restrictions.
+          Use SPDX identifiers when possible. Be explicit about restrictions on redistribution, commercial use, etc.
+        minLength: 1
+        maxLength: 500
+        examples:
+          - "Internal Use Only - ExampleCorp Confidential"
+          - "CC-BY-4.0"
+          - "MIT"
+          - "Proprietary - Commercial License Required"
+          - "Public Domain (CC0)"
+
+      copyright_holders:
+        type: array
+        description: Entities that hold copyright or intellectual property rights to the data
+        items:
+          type: string
+        examples:
+          - ["ExampleCorp Inc."]
+          - ["Multiple authors - see LICENSE file"]
+
+      third_party_data:
+        type: string
+        description: |
+          Information about any third-party data sources included, and confirmation of proper licensing/permissions.
+          Critical for supply chain risk and legal compliance.
+        maxLength: 1000
+        examples:
+          - "10% of dataset sourced from public Kaggle dataset under CC-BY-4.0 license. Proper attribution maintained."
+          - "No third-party data - all internally generated"
+
+  data_preparation:
+    type: object
+    description: |
+      Steps taken to process, clean, and prepare the data for use.
+      Documents data quality assurance and transformations applied.
+    properties:
+      preprocessing_steps:
+        type: string
+        description: |
+          A comprehensive summary of cleaning, normalization, transformation, and augmentation steps applied.
+          Include tools and scripts used if relevant.
+        minLength: 5
+        maxLength: 4000
+        examples:
+          - "HTML from Confluence converted to clean Markdown using Pandoc. Documents chunked into 512-token segments with 64-token overlap using LangChain text splitter. Script removes documents tagged 'DRAFT' or 'ARCHIVED'."
+          - "Missing values imputed using median for numeric features and mode for categorical. Categorical variables one-hot encoded. Numeric features scaled using StandardScaler. Time-based features extracted from timestamps (hour, day of week, month)."
+
+      preprocessing_code:
+        type: string
+        format: uri-reference
+        description: Path or URL to preprocessing scripts or notebooks
+        examples:
+          - "scripts/preprocess_policies.py"
+          - "notebooks/data-cleaning-v2.ipynb"
+
+      data_splits:
+        type: object
+        description: How the data was split into training, validation, and test sets
+        properties:
+          train:
+            type: object
+            properties:
+              num_instances:
+                type: integer
+              percentage:
+                type: number
+                minimum: 0
+                maximum: 100
+          validation:
+            type: object
+            properties:
+              num_instances:
+                type: integer
+              percentage:
+                type: number
+                minimum: 0
+                maximum: 100
+          test:
+            type: object
+            properties:
+              num_instances:
+                type: integer
+              percentage:
+                type: number
+                minimum: 0
+                maximum: 100
+          split_method:
+            type: string
+            description: Method used to split data (random, stratified, temporal, etc.)
+            examples:
+              - "Stratified random split maintaining class distribution"
+              - "Temporal split: train on 2020-2023, validate on Q1-Q2 2024, test on Q3-Q4 2024"
+        examples:
+          - train:
+              num_instances: 70000
+              percentage: 70
+            validation:
+              num_instances: 15000
+              percentage: 15
+            test:
+              num_instances: 15000
+              percentage: 15
+            split_method: "Stratified random split maintaining fraud/legitimate ratio"
+
+      anonymization:
+        type: string
+        description: |
+          Description of any PII removal, anonymization, or de-identification techniques used.
+          Critical for privacy compliance (GDPR, CCPA, HIPAA).
+        minLength: 5
+        maxLength: 2000
+        examples:
+          - "A regex-based script removes any explicit employee names or email addresses found in examples within policy documents, replacing them with placeholders like '<employee-name>'."
+          - "All user identifiers replaced with random UUIDs. Geographic information coarsened to zip code level. Dates jittered by +/- 7 days. K-anonymity verified with k=5 across quasi-identifiers."
+
+      data_augmentation:
+        type: string
+        description: Any data augmentation techniques applied (oversampling, synthetic data generation, etc.)
+        maxLength: 1000
+        examples:
+          - "SMOTE oversampling applied to minority class (fraud) to achieve 1:1 ratio in training set."
+          - "Image augmentation: random rotation (±15°), horizontal flip, brightness adjustment (±20%)."
+
+      quality_assurance:
+        type: string
+        description: Quality checks and validation steps performed on the prepared data
+        maxLength: 1000
+        examples:
+          - "Automated schema validation. Manual review of 100 random samples. Duplicate detection and removal. Outlier analysis with manual verification of extreme values."
+
+  data_analysis:
+    type: object
+    description: |
+      Statistical and demographic analysis of the dataset.
+      Essential for bias detection, fairness assessment, and understanding data characteristics.
+    properties:
+      key_statistics:
+        type: string
+        description: |
+          Important statistics about the dataset's composition and characteristics.
+          Include class distributions, feature statistics, missing data rates, etc.
+        minLength: 10
+        maxLength: 2000
+        examples:
+          - "Total documents: 412. Total chunks: 8,924. Average chunk size: 488 tokens. Token distribution: min=156, max=512, median=502."
+          - "Class distribution: Fraud=2.3%, Legitimate=97.7%. Transaction amount: mean=$87.45, median=$45.20, std=$152.33. 45 features: 20 numeric, 25 categorical. Missing values: <0.1% across all features."
+
+      class_distribution:
+        type: object
+        description: Distribution of classes or labels (for supervised learning datasets)
+        properties:
+          classes:
+            type: array
+            items:
+              type: object
+              properties:
+                label:
+                  type: string
+                count:
+                  type: integer
+                percentage:
+                  type: number
+        examples:
+          - classes:
+              - label: "Fraud"
+                count: 23000
+                percentage: 2.3
+              - label: "Legitimate"
+                count: 977000
+                percentage: 97.7
+
+      feature_distributions:
+        type: string
+        description: Summary of key feature distributions, correlations, or patterns
+        maxLength: 2000
+        examples:
+          - "Transaction amounts follow long-tailed distribution with 95% < $500. Strong correlation (r=0.72) between transaction_count_24h and fraud_flag. Geographic concentration: 80% of transactions from 10 states."
+
+      demographic_representation:
+        type: string
+        description: |
+          Analysis of representation across sensitive attributes (age, gender, race, language, geography, etc.).
+          Critical for fairness assessment and bias detection.
+          Mark as "Not Applicable" if data does not contain demographic information.
+        minLength: 5
+        maxLength: 4000
+        examples:
+          - "Not applicable. The data consists of corporate policies, not user data."
+          - "User demographics (self-reported, 45% completion rate): Age: 18-25 (12%), 26-35 (28%), 36-45 (22%), 46-55 (18%), 56+ (20%). Gender: Male (52%), Female (46%), Non-binary (2%). Geographic: US (78%), EU (15%), Other (7%). Language: English (85%), Spanish (10%), Other (5%)."
+
+      data_quality_issues:
+        type: string
+        description: Known issues with data quality, completeness, or representativeness
+        maxLength: 1000
+        examples:
+          - "Some policy documents are incomplete or reference external resources not included in dataset. Approximately 5% of documents lack proper version metadata."
+          - "Missing transaction amounts for 0.3% of records. Merchant category codes inconsistent across payment processors. Underrepresentation of international transactions (<5%)."
+
+      bias_analysis:
+        type: object
+        description: Structured analysis of potential biases in the dataset
+        properties:
+          assessed_dimensions:
+            type: array
+            description: Dimensions along which bias was assessed
+            items:
+              type: string
+            examples:
+              - ["age", "gender", "geography", "language"]
+
+          identified_biases:
+            type: array
+            description: Specific biases identified in the data
+            items:
+              type: object
+              properties:
+                bias_type:
+                  type: string
+                  examples:
+                    - "Representation bias"
+                    - "Historical bias"
+                    - "Measurement bias"
+                description:
+                  type: string
+                severity:
+                  type: string
+                  enum:
+                    - "low"
+                    - "medium"
+                    - "high"
+                mitigation:
+                  type: string
+            examples:
+              - - bias_type: "Representation bias"
+                  description: "Underrepresentation of non-English transactions (only 15% of dataset)"
+                  severity: "medium"
+                  mitigation: "Added data augmentation and translation for common fraud patterns"
+
+          fairness_constraints:
+            type: string
+            description: Any constraints applied during data preparation to promote fairness
+            examples:
+              - "Ensured balanced representation across age groups through stratified sampling"
+
+  data_lineage:
+    type: object
+    description: |
+      Detailed tracking of data transformations and dependencies.
+      Supports reproducibility and regulatory requirements for data governance.
+    properties:
+      source_datasets:
+        type: array
+        description: Upstream datasets that this dataset was derived from
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            version:
+              type: string
+            url:
+              type: string
+              format: uri
+        examples:
+          - - name: "Raw Transaction Logs"
+              version: "2024-Q4"
+              url: "s3://data-lake/transactions/2024-q4"
+
+      derived_datasets:
+        type: array
+        description: Downstream datasets that were created from this dataset
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            purpose:
+              type: string
+            url:
+              type: string
+              format: uri
+
+      transformation_pipeline:
+        type: string
+        format: uri-reference
+        description: Link to the transformation pipeline or DAG that produced this dataset
+        examples:
+          - "airflow/dags/fraud_data_pipeline_v2.py"
+          - "https://github.com/example/ml-pipelines/blob/main/prepare_data.py"
+
+  ethical_considerations:
+    type: object
+    description: |
+      Ethical considerations related to data collection, use, and potential harms.
+      Supports AI RMF MAP function for identifying ethical risks.
+    properties:
+      consent_and_permissions:
+        type: string
+        description: |
+          How consent was obtained for data collection and use, if applicable.
+          Note if data subjects were informed about AI/ML use cases.
+        maxLength: 1000
+        examples:
+          - "All employees consent to internal data use via employment agreement. Policy documents are not personal data."
+          - "Transaction data collected under user agreement that explicitly mentions fraud detection use case. Anonymized before use in ML."
+
+      privacy_protections:
+        type: string
+        description: Privacy protections applied to the data, including compliance with regulations
+        maxLength: 1000
+        examples:
+          - "No personal data present in dataset."
+          - "GDPR-compliant anonymization applied. Right to erasure supported through UUID-based linking to source systems. Data retention policy: 2 years after user account closure."
+
+      potential_harms:
+        type: string
+        description: |
+          Known or potential harms that could result from use of this dataset, including fairness concerns.
+        maxLength: 2000
+        examples:
+          - "Underrepresentation of certain policy types may lead to poor coverage for niche employee questions."
+          - "Historical bias: Dataset reflects past fraud patterns which may not generalize to new fraud schemes. Demographic imbalance may lead to higher false positive rates for underrepresented groups."
+
+      sensitive_information:
+        type: string
+        description: |
+          Presence of sensitive information (PII, protected health information, financial data, etc.) and how it's handled.
+        maxLength: 1000
+        examples:
+          - "No sensitive information present."
+          - "Dataset originally contained credit card numbers and CVVs. All removed during preprocessing. Transaction amounts and merchant categories retained as non-sensitive."
+
+      data_subject_rights:
+        type: string
+        description: How data subject rights (access, rectification, erasure) are supported
+        maxLength: 1000
+        examples:
+          - "Not applicable - no personal data."
+          - "UUID-based linking allows for data erasure requests. Anonymization prevents re-identification. Access requests supported through customer portal."
+
+  additional_information:
+    type: object
+    description: Optional additional information that doesn't fit in other structured sections
+    properties:
+      contact_information:
+        type: string
+        description: How to contact the dataset owners or maintainers
+        examples:
+          - "data-governance@example.com"
+          - "Slack: #data-governance"
+
+      related_datasets:
+        type: array
+        description: Other related datasets (prior versions, similar datasets, complementary data)
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            relationship:
+              type: string
+              examples:
+                - "previous version"
+                - "complementary data"
+                - "alternative source"
+            url:
+              type: string
+              format: uri
+
+      known_uses:
+        type: string
+        description: Known uses of this dataset in models or applications
+        maxLength: 1000
+        examples:
+          - "Used to train Internal-Policy-LLM-v2 and Policy-Search-v1 models."
+
+      regulatory_compliance:
+        type: string
+        description: Relevant regulatory frameworks or compliance requirements this dataset addresses
+        maxLength: 1000
+        examples:
+          - "Meets EU AI Act Article 10 requirements for data governance (relevant, representative, free from errors)."
+          - "SOX-compliant data handling procedures. GDPR Article 25 (data protection by design) implemented."
+
+      data_card_authors:
+        type: array
+        description: Individuals who contributed to creating this data card documentation
+        items:
+          type: string
+        examples:
+          - ["Jane Doe (Data Engineer)", "John Smith (Data Governance Lead)"]
+
+      data_card_version:
+        type: string
+        description: Version of this data card document (may differ from dataset version if documentation is updated)
+        examples:
+          - "1.1"
+
+      changelog:
+        type: array
+        description: History of significant changes to this dataset or documentation
+        items:
+          type: object
+          properties:
+            version:
+              type: string
+            date:
+              type: string
+              format: date
+            changes:
+              type: string
+        examples:
+          - - version: "2025-Q3-snapshot"
+              date: "2024-09-01"
+              changes: "Added 50 new policy documents. Removed 12 archived policies. Re-chunked all documents with updated overlap strategy."
+
+additionalProperties: false

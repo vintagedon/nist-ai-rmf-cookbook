@@ -1,0 +1,19 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-toolsai.jupyter",
+    "ms-toolsai.jupyter-keymap",
+    "ms-toolsai.jupyter-renderers",
+    "gruntfuggly.todo-tree",
+    "eamodio.gitlens",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.vscode-remote-extensionpack",
+    "ms-azuretools.vscode-docker",
+    "esbenp.prettier-vscode",
+    "usernamehw.errorlens",
+    "redhat.vscode-yaml",
+    "slevesque.vscode-zipexplorer",
+  ]
+}

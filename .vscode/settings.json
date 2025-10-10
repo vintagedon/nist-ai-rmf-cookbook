@@ -1,0 +1,48 @@
+{
+  "python.defaultInterpreterPath": "D:\\AI-ML\\venv-global\\python.exe",
+  "python.pythonPath": "D:\\AI-ML\\venv-global\\python.exe",
+  "python.envFile": "D:\\AI-ML\\global-env\\research.env",
+
+  "terminal.integrated.profiles.windows": {
+    "AI-ML Env Shell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+      "args": [
+        "-NoExit",
+        "-Command",
+        ". '${workspaceFolder}/.vscode/activate_venv.ps1'"
+      ]
+    },
+    "PowerShell": { "source": "PowerShell" }
+  },
+  "terminal.integrated.defaultProfile.windows": "AI-ML Env Shell",
+
+  "terminal.integrated.env.windows": {
+    "PYTHONHOME": "D:\\AI-ML\\venv-global",
+    "PYTHONPATH": "D:\\AI-ML\\venv-global\\Lib\\site-packages"
+  },
+
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.exclude": [
+    "**/.venv/**",
+    "**/env/**",
+    "**/.ipynb_checkpoints/**",
+    "**/node_modules/**",
+    "**/data/**",
+    "**/models/**",
+    "**/mlruns/**"
+  ],
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "jupyter.textOutputLimit": 1000000,
+  "cSpell.enabled": true,
+  "cSpell.useGitignore": true,
+  "cSpell.configFile": "${workspaceFolder}/cspell.json",
+  "git.ignoreLimitWarning": true,
+  "files.watcherExclude": {
+    "**/data/**": true,
+    "**/.ipynb_checkpoints/**": true,
+    "**/models/**": true
+  },
+  "jupyter.interactiveWindow.creationMode": "perFile"
+}

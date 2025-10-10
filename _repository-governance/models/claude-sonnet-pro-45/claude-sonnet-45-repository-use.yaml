@@ -1,0 +1,255 @@
+# Model Card: Claude Sonnet 4.5 (Repository Use)
+# Following model-card.schema.yaml for NIST AI RMF Cookbook documentation
+
+schema_version: 1.0.0
+
+model_details:
+  name: "Claude Sonnet 4.5"
+  version: "claude-sonnet-4-5-20250514"
+  owner: "Anthropic"
+  license: "Proprietary - Commercial API access"
+  description: |
+    Claude Sonnet 4.5 is Anthropic's most capable model in the Claude 4 family, serving as the
+    primary AI assistant for creating and maintaining the NIST AI RMF Cookbook repository. It
+    handles content generation, framework analysis, policy drafting, and schema design with
+    strong emphasis on accuracy, safety, and alignment with governance best practices.
+  
+  model_url: "https://www.anthropic.com/claude/sonnet"
+  
+  model_architecture:
+    family: "Claude 4 Family"
+    parameter_count: "Not publicly disclosed by Anthropic"
+    context_window: "200,000 tokens"
+    modalities: "Text and image input; text output"
+    
+  training_details:
+    training_data_cutoff: "End of January 2025"
+    training_data_sources: "Not publicly disclosed - curated mixture of web data, books, and other sources"
+    training_methodology: "Constitutional AI (CAI) with RLHF and other alignment techniques"
+    compute_resources: "Not publicly disclosed"
+
+intended_use:
+  primary_uses: |
+    In the NIST AI RMF Cookbook repository, Claude Sonnet 4.5 is used for:
+    - Primary content creation (policies, documentation, schemas)
+    - Multi-model consensus analysis (parallel generation with GPT-4 and Gemini)
+    - Framework interpretation and crosswalk development
+    - Complex reasoning about AI governance and compliance
+    - Code generation for automation scripts
+    - Document structuring and synthesis
+  
+  primary_users: "Repository maintainer (VintageDon) and potentially approved contributors"
+  
+  out_of_scope_uses: |
+    - NOT used as the sole authority on legal compliance interpretations
+    - NOT used for final content without human verification
+    - NOT used with credentials, secrets, or sensitive personal information
+    - NOT used to make risk acceptance decisions (human responsibility)
+  
+  usage_context: |
+    Claude Sonnet 4.5 is accessed via Anthropic API and Claude.ai interface with training
+    opt-out enabled for all subscription tiers. Usage follows the repository's AI Acceptable
+    Use Policy and multi-model consensus methodology for critical content.
+
+evaluation:
+  evaluation_data: |
+    Evaluated through practical use in repository documentation tasks. Assessment is qualitative
+    and based on output quality, accuracy, and alignment with governance frameworks.
+  
+  metrics:
+    - name: "Multi-Model Consensus Leadership"
+      value: "Primary content generator in 2-3 model consensus process"
+      description: "Claude Sonnet 4.5 consistently produces high-quality initial drafts for other models to review"
+    
+    - name: "Framework Alignment Accuracy"
+      value: "Excellent (with human verification)"
+      description: "Strong understanding of NIST AI RMF, ISO standards, and regulatory frameworks"
+    
+    - name: "Policy Language Quality"
+      value: "High - minimal revision required"
+      description: "Produces clear, professional policy language suitable for organizational use"
+    
+    - name: "Safety and Alignment"
+      value: "Excellent"
+      description: "Demonstrates strong alignment with responsible AI principles and governance best practices"
+  
+  strengths:
+    - "Exceptional understanding of AI governance frameworks and compliance requirements"
+    - "Strong reasoning capabilities for complex framework mappings and crosswalks"
+    - "High-quality policy and technical writing with minimal revision needed"
+    - "Excellent at structured thinking and systematic analysis"
+    - "Strong safety alignment - refuses harmful or inappropriate requests"
+    - "Good at identifying nuances and edge cases in governance requirements"
+  
+  limitations:
+    - "Knowledge cutoff (end of January 2025) means may lack very recent regulatory updates"
+    - "Cannot access external tools or real-time information without human assistance"
+    - "May occasionally require clarification on ambiguous requirements"
+    - "Conservative approach may sometimes suggest more caution than strictly necessary"
+
+ethical_considerations:
+  known_biases: |
+    As a commercial LLM, Claude has potential biases including:
+    - Anthropic's perspective on AI safety and Constitutional AI principles
+    - Training data biases common to large language models
+    - Possible Western/English-language bias in some contexts
+    These biases are mitigated through multi-model consensus and human review.
+  
+  mitigation_strategy: |
+    Repository methodology mitigates Claude-specific biases through:
+    1. Multi-model consensus (2-3 models including GPT-4 and Gemini)
+    2. Models cross-review each other's outputs
+    3. Human verification against authoritative sources (NIST publications, ISO standards)
+    4. Conservative approach to uncertain claims
+    5. Explicit documentation of AI involvement in all outputs
+
+  fairness_considerations: |
+    In the repository context (documentation generation), fairness concerns are addressed by:
+    - Ensuring documentation is accessible to diverse audiences
+    - Using clear, jargon-free language where possible
+    - Providing multiple perspectives through multi-model consensus
+    - Human review for inclusivity and accessibility
+
+  transparency_approach: |
+    Full transparency maintained through:
+    - Disclosure in front matter (ai_contributor field)
+    - Documentation methodology explaining Claude's role
+    - Git history showing all AI-assisted contributions
+    - This model card documenting capabilities and limitations
+
+risk_assessment:
+  identified_risks:
+    - risk_id: "CLAUDE-RISK-001"
+      category: "Hallucination / Inaccuracy"
+      description: "May generate plausible-sounding but incorrect framework interpretations"
+      likelihood: "Low to Medium"
+      impact: "High if undetected"
+      mitigation: "Mandatory human verification against authoritative sources; multi-model cross-check"
+    
+    - risk_id: "CLAUDE-RISK-002"
+      category: "Data Privacy"
+      description: "API submission could expose sensitive content despite training opt-out"
+      likelihood: "Very Low (with controls)"
+      impact: "High"
+      mitigation: "Strict policy against submitting credentials, PII, or confidential information; all content is public/open-source"
+    
+    - risk_id: "CLAUDE-RISK-003"
+      category: "Overreliance"
+      description: "High output quality might lead to insufficient human verification"
+      likelihood: "Medium"
+      impact: "Medium to High"
+      mitigation: "Repository policy requires 100% human verification regardless of output quality"
+    
+    - risk_id: "CLAUDE-RISK-004"
+      category: "Temporal Drift"
+      description: "Knowledge cutoff means may miss recent regulatory/framework updates"
+      likelihood: "High for very recent developments"
+      impact: "Medium"
+      mitigation: "Human research of latest publications; explicit dating of all content; conservative claims about current state"
+    
+    - risk_id: "CLAUDE-RISK-005"
+      category: "Overconfidence in Interpretations"
+      description: "May present interpretations with high confidence that require human judgment"
+      likelihood: "Medium"
+      impact: "Medium"
+      mitigation: "Human review of all compliance interpretations; multi-model consensus provides alternative perspectives"
+
+  nist_ai_rmf_alignment:
+    govern: "Model usage governed by repository AI Acceptable Use Policy and methodology documentation"
+    map: "Risks identified and documented in this model card"
+    measure: "Ongoing qualitative assessment through practical use; no formal quantitative metrics"
+    manage: "Mitigations implemented through multi-model consensus, human verification, and policy controls"
+
+model_usage_guidelines:
+  recommended_practices:
+    - "Use as primary model for content generation and framework analysis"
+    - "Always use in multi-model consensus mode for critical content (minimum 2 models)"
+    - "Provide clear context about NIST AI RMF and repository goals in prompts"
+    - "Request specific output formats and structure"
+    - "Verify all factual claims against authoritative sources"
+    - "Use iterative refinement - review outputs and request improvements"
+  
+  prompt_engineering_notes: |
+    Claude Sonnet 4.5 responds well to:
+    - Clear, structured prompts with specific instructions
+    - Requests for step-by-step reasoning
+    - Explicit length constraints when needed
+    - Framework-specific terminology (NIST AI RMF vocabulary)
+    - Requests to cite sources or explain reasoning
+  
+  when_to_use_claude:
+    - "Primary content generation for policies, schemas, documentation"
+    - "Complex framework analysis and crosswalk development"
+    - "Technical writing requiring accuracy and clarity"
+    - "Initial drafts for multi-model consensus process"
+    - "Tasks requiring strong alignment with safety principles"
+  
+  when_not_to_use:
+    - "Quick syntax checks (use local models)"
+    - "Content requiring very recent information beyond knowledge cutoff"
+    - "Tasks where other models have demonstrated superior performance"
+
+deployment_info:
+  deployment_environment: "Anthropic API (https://api.anthropic.com) and Claude.ai web interface"
+  serving_infrastructure: "Managed by Anthropic - AWS-based cloud infrastructure"
+  deployment_date: "2024-10 (repository project start)"
+  
+  access_configuration:
+    api_access: "Via Anthropic API keys and Claude.ai Pro subscription"
+    training_opt_out: "Enabled across all subscription tiers - submitted content not used for model training"
+    data_retention: "Per Anthropic's Commercial Terms of Service"
+  
+  monitoring_approach: |
+    No formal technical monitoring (API access only). Quality monitoring consists of:
+    - Human assessment of output quality per task
+    - Git history tracking all AI-assisted contributions
+    - CI/CD validation catches schema/format errors
+    - Community review through GitHub pull requests
+  
+  rollback_plan: |
+    If Claude availability or quality issues arise:
+    - Switch to GPT-4 as primary model
+    - Use Gemini Pro as alternative
+    - Fall back to local models for simple tasks
+    - Document issues for future reference
+
+additional_information:
+  contact_information: "Repository maintainer: VintageDon (GitHub: @vintagedon)"
+  
+  related_models:
+    - name: "GPT-4"
+      relationship: "Multi-model consensus partner"
+      url: "./gpt-4-repository-use.yaml"
+    
+    - name: "Gemini Pro"
+      relationship: "Multi-model consensus partner"
+      url: "./gemini-pro-repository-use.yaml"
+    
+    - name: "Local Models"
+      relationship: "Lightweight tasks and offline work"
+      url: "./local-models-repository-use.yaml"
+  
+  comparison_notes: |
+    Relative to other models in our stack:
+    - Stronger safety alignment than GPT-4
+    - More concise outputs than GPT-4
+    - Better policy language than Gemini Pro
+    - Primary model due to consistent high-quality outputs
+  
+  regulatory_compliance: |
+    Usage aligns with:
+    - Repository AI Acceptable Use Policy
+    - Anthropic's Commercial Terms of Service
+    - NIST AI RMF GOVERN function (documented governance)
+    - Training opt-out supports data governance best practices
+  
+  model_card_authors:
+    - "VintageDon (Repository Maintainer)"
+    - "Claude Sonnet 4.5 (Document Structuring)"
+  
+  model_card_version: "1.0"
+  
+  changelog:
+    - version: "1.0"
+      date: "2025-01-XX"
+      changes: "Initial model card creation documenting Claude Sonnet 4.5 usage in repository"

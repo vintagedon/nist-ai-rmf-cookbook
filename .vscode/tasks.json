@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "python: register ipykernel (venv-global)",
+      "type": "shell",
+      "command": "D:\\AI-ML\\venv-global\\python.exe -m ipykernel install --user --name venv-global --display-name \"Python (venv-global)\"",
+      "problemMatcher": []
+    },
+    { "label": "ssh: proj-gpu01",   "type": "shell", "command": "ssh proj-gpu01" },
+    { "label": "ssh: proj-pgsql01", "type": "shell", "command": "ssh proj-pgsql01" },
+    { "label": "ssh: proj-pgsql02", "type": "shell", "command": "ssh proj-pgsql02" }
+  ]
+}

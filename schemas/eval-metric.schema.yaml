@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema#
+$schema: http://json-schema.org/draft-07/schema#
+title: Evaluation Metric Plan Schema
+description: Defines the structure for evaluation plans covering both AI system performance metrics and governance process metrics.
+type: object
+required:
+  - schema_version
+  - evaluation_plan
+properties:
+  schema_version:
+    type: string
+    description: The version of this schema.
+    pattern: '^\d+\.\d+\.\d+$'
+  evaluation_plan:
+    type: array
+    items:
+      type: object
+      required:
+        - metric_id
+        - metric_name
+        - description
+        - methodology
+        - acceptance_criteria
+      properties:
+        metric_id:
+          type: string
+          description: A unique identifier for this evaluation metric (e.g., EVAL-01, PROC-METRIC-01, DOC-QUALITY-01).
+        metric_name:
+          type: string
+          description: The common name of the metric (e.g., Retrieval Precision at 5, Multi-Model Consensus Completion Rate, Policy Review Score).
+        description:
+          type: string
+          description: A description of what the metric measures and why it is important for system performance or governance compliance.
+        methodology:
+          type: string
+          description: How the metric is calculated or assessed. Enum can be expanded as new evaluation methods are needed.
+          enum: 
+            - Automated Script
+            - Manual Review
+            - CI Pipeline
+            - Multi-Model Consensus
+            - Model Exit Interview
+            - Red Team Exercise
+            - Statistical Analysis
+            - Human Evaluation Panel
+        acceptance_criteria:
+          type: string
+          description: The threshold or condition for this metric to be considered 'passing' (e.g., '>= 0.85', 'No critical findings', 'All models agree').
+        last_result:
+          type: object
+          description: The most recent evaluation result for this metric.
+          properties:
+            value:
+              type: [string, number]
+              description: The measured value - can be numeric score, categorical result, or structured output.
+            date:
+              type: string
+              format: date-time
+              description: When this evaluation was performed (ISO 8601 format).
+            evidence_url:
+              type: string
+              format: uri-reference
+              description: Relative path to the evidence artifact documenting this result (e.g., evidence/metrics/eval-01-results.json, evidence/exit-interviews/model-review-20251010.md).

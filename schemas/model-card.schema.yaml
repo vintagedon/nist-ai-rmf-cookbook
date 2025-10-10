@@ -1,0 +1,568 @@
+# yaml-language-server: $schema=http://json-schema.org/draft-07/schema#
+$schema: http://json-schema.org/draft-07/schema#
+$id: https://github.com/vintagedon/nist-ai-rmf-cookbook/schemas/model-card.schema.yaml
+title: AI Model Card Schema
+description: |
+  Defines the structure for documenting an AI model's properties, intended use, limitations, and performance characteristics.
+  Based on NIST AI RMF documentation requirements and informed by industry practices from Hugging Face and Google Model Cards.
+  
+  This schema supports the AI RMF GOVERN and MAP functions by establishing standardized model documentation.
+version: 1.0.0
+type: object
+
+required:
+  - schema_version
+  - model_details
+  - intended_use
+  - evaluation
+
+properties:
+  schema_version:
+    type: string
+    description: The version of this schema specification
+    pattern: '^\d+\.\d+\.\d+$'
+    examples:
+      - "1.0.0"
+
+  model_details:
+    type: object
+    description: Basic identifying information and technical specifications about the model
+    required:
+      - name
+      - version
+      - owner
+      - license
+      - description
+    properties:
+      name:
+        type: string
+        description: The common name of the model (human-readable identifier)
+        minLength: 1
+        maxLength: 200
+        examples:
+          - "Internal-Policy-LLM-v2"
+          - "Fraud-Detection-Classifier"
+          - "Image-Segmentation-Model"
+
+      version:
+        type: string
+        description: |
+          The specific version of the model artifact. Should follow semantic versioning when possible.
+          Include fine-tuning iteration or checkpoint information if relevant.
+        minLength: 1
+        maxLength: 100
+        examples:
+          - "2.1.3-finetuned"
+          - "v1.0.0"
+          - "checkpoint-5000"
+
+      owner:
+        type: string
+        description: The team, department, or individual responsible for the model's development and maintenance
+        minLength: 1
+        maxLength: 200
+        examples:
+          - "AI Core Platform Team"
+          - "Data Science - Fraud Prevention"
+          - "ML Research Division"
+
+      license:
+        type: string
+        description: |
+          The license under which the model is distributed or used.
+          Use SPDX identifiers when possible. Use "Proprietary" for internal models.
+        minLength: 1
+        maxLength: 100
+        examples:
+          - "Apache-2.0"
+          - "MIT"
+          - "Proprietary"
+          - "CC-BY-4.0"
+
+      description:
+        type: string
+        description: |
+          A clear, concise description of the model's architecture, functionality, and purpose.
+          Include model family/base architecture and any significant customizations.
+        minLength: 10
+        maxLength: 2000
+        examples:
+          - "A Llama-3-8B model fine-tuned on internal Q&A pairs for enhanced instruction following and summarization of corporate policy documents."
+          - "A gradient boosting classifier (XGBoost) trained to detect fraudulent transactions based on transaction metadata and user behavior patterns."
+
+      model_type:
+        type: string
+        description: The high-level category or task type of the model
+        enum:
+          - "text-generation"
+          - "text-classification"
+          - "question-answering"
+          - "summarization"
+          - "translation"
+          - "image-classification"
+          - "object-detection"
+          - "image-segmentation"
+          - "speech-recognition"
+          - "text-to-speech"
+          - "tabular-classification"
+          - "tabular-regression"
+          - "time-series-forecasting"
+          - "recommendation"
+          - "anomaly-detection"
+          - "other"
+        examples:
+          - "question-answering"
+          - "tabular-classification"
+
+      model_architecture:
+        type: string
+        description: |
+          Specific architecture or model family (e.g., "Transformer", "CNN", "XGBoost", "Random Forest").
+          Include base model if fine-tuned (e.g., "BERT-base", "Llama-3-8B").
+        maxLength: 200
+        examples:
+          - "Llama-3-8B (Transformer)"
+          - "XGBoost"
+          - "ResNet-50"
+
+      model_url:
+        type: string
+        format: uri
+        description: |
+          A link to the model artifact, model registry entry, or repository.
+          Should point to a stable, version-specific location.
+        examples:
+          - "https://artifactory.example.com/models/internal-policy-llm/2.1.3"
+          - "https://huggingface.co/organization/model-name"
+          - "s3://ml-models/fraud-detector-v2.1.0"
+
+      model_size:
+        type: object
+        description: Model size metrics (optional but recommended for large models)
+        properties:
+          parameters:
+            type: string
+            description: Total number of parameters (e.g., "8B", "175M", "1.5B")
+            examples:
+              - "8B"
+              - "175M"
+          disk_size:
+            type: string
+            description: Storage size of model artifacts (e.g., "16GB", "500MB")
+            examples:
+              - "16GB"
+              - "500MB"
+
+      training_date:
+        type: string
+        format: date
+        description: Date when the model training was completed (ISO 8601 format YYYY-MM-DD)
+        examples:
+          - "2024-10-15"
+
+      last_updated:
+        type: string
+        format: date
+        description: Date of last modification or fine-tuning (ISO 8601 format YYYY-MM-DD)
+        examples:
+          - "2024-12-20"
+
+      citations:
+        type: array
+        description: Academic papers, technical reports, or other publications relevant to this model
+        items:
+          type: object
+          properties:
+            title:
+              type: string
+            authors:
+              type: string
+            year:
+              type: integer
+            url:
+              type: string
+              format: uri
+        examples:
+          - - title: "Attention Is All You Need"
+              authors: "Vaswani et al."
+              year: 2017
+              url: "https://arxiv.org/abs/1706.03762"
+
+  intended_use:
+    type: object
+    description: |
+      Describes how the model is meant to be used, including target users, use cases, and explicitly out-of-scope uses.
+      Critical for AI RMF MAP function - establishes context and boundaries for risk assessment.
+    required:
+      - primary_uses
+      - primary_users
+      - out_of_scope_uses
+    properties:
+      primary_uses:
+        type: string
+        description: |
+          The primary tasks and applications the model was designed for.
+          Be specific about the intended operational context.
+        minLength: 10
+        maxLength: 2000
+        examples:
+          - "Answering employee questions about HR, IT, and security policies by summarizing content from the official knowledge base."
+          - "Detecting fraudulent credit card transactions in real-time during payment processing."
+
+      primary_users:
+        type: string
+        description: |
+          The target audience or stakeholders for this model.
+          Include any access restrictions or authorization requirements.
+        minLength: 5
+        maxLength: 1000
+        examples:
+          - "All full-time employees of ExampleCorp."
+          - "Fraud investigation team and automated payment processing systems."
+
+      use_case_requirements:
+        type: string
+        description: |
+          Specific conditions, prerequisites, or environmental requirements for appropriate model use.
+          Include deployment constraints, input requirements, or operational conditions.
+        maxLength: 2000
+        examples:
+          - "Requires access to real-time policy knowledge base. Users must be authenticated via SSO. Queries must be in English."
+
+      out_of_scope_uses:
+        type: string
+        description: |
+          Known uses that are not supported, could lead to poor performance, or might cause harm.
+          Be explicit about use cases the model should NOT be applied to.
+        minLength: 10
+        maxLength: 2000
+        examples:
+          - "Providing legal or financial advice. Answering questions about topics not covered in the knowledge base. Engaging in casual conversation. Making decisions without human review."
+          - "Transaction monitoring for amounts exceeding $50,000 (model was not trained on high-value transactions). Use for B2B payment fraud (trained only on consumer transactions)."
+
+  evaluation:
+    type: object
+    description: |
+      Summary of the model's performance evaluation results.
+      Supports AI RMF MEASURE function by documenting testing methodology and results.
+    required:
+      - evaluation_data
+      - metrics
+    properties:
+      evaluation_data:
+        type: string
+        description: |
+          A description of the dataset(s) used for evaluation, including size, composition, and source.
+          Should be sufficient to assess whether evaluation is representative of intended use.
+        minLength: 10
+        maxLength: 2000
+        examples:
+          - "A holdout set of 250 curated question-answer pairs, reviewed for accuracy by the HR and Legal departments."
+          - "10,000 labeled transactions from Q3 2024, stratified to include 50% fraudulent and 50% legitimate transactions."
+
+      metrics:
+        type: array
+        description: |
+          Performance metrics with values and descriptions.
+          Include metrics relevant to the model's task and any fairness/safety metrics.
+        minItems: 1
+        items:
+          type: object
+          required:
+            - name
+            - value
+          properties:
+            name:
+              type: string
+              description: The name of the metric (e.g., "Accuracy", "F1-Score", "ROUGE-L", "Demographic Parity Difference")
+              minLength: 1
+              maxLength: 200
+              examples:
+                - "Answer Faithfulness"
+                - "Precision"
+                - "Recall"
+                - "F1-Score"
+
+            value:
+              type: [string, number]
+              description: |
+                The metric value. Use number for numeric metrics, string for qualitative assessments or ranges.
+              examples:
+                - 0.96
+                - "0.88"
+                - "95% CI: [0.82, 0.90]"
+
+            description:
+              type: string
+              description: |
+                A clear explanation of what this metric measures and why it matters for this model.
+                Include methodology if not standard.
+              maxLength: 1000
+              examples:
+                - "Percentage of generated answers that are fully supported by the provided context, as measured by a separate evaluation LLM."
+                - "Percentage of fraudulent transactions correctly identified (true positive rate)."
+
+            threshold:
+              type: [string, number]
+              description: |
+                The acceptance threshold or target value for this metric, if applicable.
+                Useful for continuous monitoring and alerting.
+              examples:
+                - 0.90
+                - ">= 0.95"
+
+      benchmark_comparisons:
+        type: string
+        description: |
+          How this model's performance compares to baselines, prior versions, or industry benchmarks.
+          Provides context for evaluating whether performance is adequate.
+        maxLength: 2000
+        examples:
+          - "Outperforms baseline GPT-3.5 by 12% on answer faithfulness metric. Comparable to domain-specific models but with lower latency."
+
+      test_methodology:
+        type: string
+        description: Detailed description of how evaluation was conducted, including any automated or manual testing procedures
+        maxLength: 2000
+        examples:
+          - "Automated evaluation using LLM-as-judge methodology. Each answer was scored by GPT-4 for faithfulness and relevance. Human reviewers validated a random sample of 50 cases."
+
+  ethical_considerations:
+    type: object
+    description: |
+      Discussion of potential biases, fairness concerns, and ethical risks.
+      Critical for AI RMF MAP and MANAGE functions - documents identified ethical risks and mitigations.
+    properties:
+      known_biases:
+        type: string
+        description: |
+          A description of any known biases in the model's performance or training data.
+          Be specific about which groups or scenarios are affected.
+        maxLength: 2000
+        examples:
+          - "The model may over-emphasize policies that are more frequently documented or have more examples in the fine-tuning data. It does not have knowledge of employee-specific situations."
+          - "Model exhibits 8% lower recall for fraud detection on transactions from non-English-speaking customers, likely due to underrepresentation in training data."
+
+      mitigation_strategy:
+        type: string
+        description: |
+          Steps taken or planned to mitigate identified biases and ethical risks.
+          Include both technical mitigations and procedural safeguards.
+        maxLength: 2000
+        examples:
+          - "The system prompt explicitly instructs the model to state when it cannot find a relevant policy. The user interface includes a clear disclaimer and a link to file a ticket with HR for complex cases."
+          - "Added data augmentation to oversample minority language transactions. Implemented human review for all flagged transactions exceeding $10,000."
+
+      fairness_assessment:
+        type: object
+        description: Structured fairness evaluation across demographic groups or sensitive attributes
+        properties:
+          assessed_groups:
+            type: array
+            description: Demographic groups or sensitive attributes evaluated for fairness
+            items:
+              type: string
+            examples:
+              - ["age", "gender", "race", "language"]
+
+          fairness_metrics:
+            type: array
+            description: Specific fairness metrics computed and their results
+            items:
+              type: object
+              properties:
+                metric_name:
+                  type: string
+                  examples:
+                    - "Demographic Parity Difference"
+                    - "Equal Opportunity Difference"
+                value:
+                  type: [string, number]
+                interpretation:
+                  type: string
+            examples:
+              - - metric_name: "Demographic Parity Difference"
+                  value: 0.03
+                  interpretation: "Within acceptable threshold of 0.05 across age groups"
+
+          fairness_constraints:
+            type: string
+            description: Any constraints or thresholds applied to ensure fairness during training or deployment
+            examples:
+              - "Model was post-processed to ensure equal opportunity difference < 0.05 across gender groups"
+
+      sensitive_data_handling:
+        type: string
+        description: How the model handles or is protected from sensitive personal information
+        maxLength: 1000
+        examples:
+          - "Model was trained on anonymized data with PII removed. Input filtering prevents submission of SSN, credit card numbers, or other regulated data."
+
+      environmental_impact:
+        type: object
+        description: Information about the environmental impact of training and operating this model
+        properties:
+          training_emissions:
+            type: string
+            description: Estimated carbon emissions from model training
+            examples:
+              - "Estimated 150 kg CO2eq based on training time and datacenter PUE"
+          inference_cost:
+            type: string
+            description: Estimated energy cost or carbon footprint per inference
+            examples:
+              - "~0.01g CO2eq per query"
+
+  limitations:
+    type: object
+    description: |
+      Known limitations, failure modes, and edge cases where the model does not perform well.
+      Essential for AI RMF MAP function - identifies risks from model limitations.
+    properties:
+      technical_limitations:
+        type: string
+        description: |
+          Technical constraints on model capabilities (e.g., context window, language support, domain boundaries).
+        maxLength: 2000
+        examples:
+          - "Limited to 2048-token context window. English-only. No support for mathematical reasoning or code generation."
+          - "Trained only on US-based transaction data. Performance degrades significantly for non-USD currencies and international payments."
+
+      known_failure_modes:
+        type: string
+        description: |
+          Specific scenarios where the model is known to fail or produce unreliable outputs.
+          Include adversarial vulnerabilities if known.
+        maxLength: 2000
+        examples:
+          - "May hallucinate policy details when asked about edge cases not covered in training data. Vulnerable to prompt injection attacks using complex nested instructions."
+          - "High false positive rate (>20%) for transactions involving cryptocurrency exchanges or international wire transfers."
+
+      performance_degradation:
+        type: string
+        description: Conditions under which model performance degrades over time or in specific contexts
+        maxLength: 1000
+        examples:
+          - "Performance degrades if policy knowledge base becomes stale. Requires retraining when >10% of policies are updated."
+          - "Concept drift expected as fraud patterns evolve. Model should be retrained quarterly."
+
+      recommendations:
+        type: string
+        description: |
+          Recommendations for appropriate use given the limitations, including suggested human oversight levels.
+        maxLength: 2000
+        examples:
+          - "Treat all model outputs as suggestions requiring human review. Do not use for high-stakes decisions without verification. Monitor for concept drift monthly."
+
+  deployment_info:
+    type: object
+    description: |
+      Information about how and where the model is deployed (optional section).
+      Supports AI RMF MANAGE function by documenting operational context.
+    properties:
+      deployment_environment:
+        type: string
+        description: Where the model is deployed (cloud provider, on-premises, edge devices)
+        examples:
+          - "AWS EKS cluster in us-east-1"
+          - "On-premises Kubernetes"
+          - "Mobile devices via CoreML"
+
+      serving_infrastructure:
+        type: string
+        description: Details about the serving infrastructure (framework, hardware, scaling)
+        examples:
+          - "TorchServe on NVIDIA A100 GPUs, auto-scaling 2-10 replicas based on load"
+
+      deployment_date:
+        type: string
+        format: date
+        description: Date the model was deployed to production (ISO 8601 format)
+        examples:
+          - "2024-11-01"
+
+      monitoring_approach:
+        type: string
+        description: How the model is monitored in production (metrics, alerts, drift detection)
+        maxLength: 1000
+        examples:
+          - "CloudWatch metrics for latency and throughput. Custom faithfulness metric computed on 1% sample. Alerting on >10% degradation. Weekly drift analysis against golden dataset."
+
+      rollback_plan:
+        type: string
+        description: Procedure for rolling back to a previous model version if issues arise
+        maxLength: 1000
+        examples:
+          - "Automated rollback to previous version if error rate exceeds 5% for >10 minutes. Manual rollback via Kubernetes deployment revert."
+
+  additional_information:
+    type: object
+    description: |
+      Optional additional information that doesn't fit in other structured sections.
+    properties:
+      contact_information:
+        type: string
+        description: How to contact the model owners or maintainers
+        examples:
+          - "ai-platform-team@example.com"
+          - "Slack: #ml-fraud-detection"
+
+      related_models:
+        type: array
+        description: Other related models (prior versions, similar models, ensemble components)
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            relationship:
+              type: string
+              examples:
+                - "previous version"
+                - "ensemble component"
+                - "baseline comparison"
+            url:
+              type: string
+              format: uri
+
+      regulatory_compliance:
+        type: string
+        description: Relevant regulatory frameworks or compliance requirements this model addresses
+        maxLength: 1000
+        examples:
+          - "Designed to support EU AI Act Article 15 (accuracy and robustness) requirements for high-risk systems."
+          - "Complies with SOX requirements for automated financial decision systems."
+
+      model_card_authors:
+        type: array
+        description: Individuals who contributed to creating this model card documentation
+        items:
+          type: string
+        examples:
+          - ["Jane Doe (Data Scientist)", "John Smith (ML Engineer)", "Sarah Johnson (AI Ethics Lead)"]
+
+      model_card_version:
+        type: string
+        description: Version of this model card document (may differ from model version if documentation is updated)
+        examples:
+          - "1.2"
+
+      changelog:
+        type: array
+        description: History of significant changes to this model or documentation
+        items:
+          type: object
+          properties:
+            version:
+              type: string
+            date:
+              type: string
+              format: date
+            changes:
+              type: string
+        examples:
+          - - version: "2.1.3"
+              date: "2024-12-20"
+              changes: "Fine-tuned on additional 500 Q&A pairs. Improved answer faithfulness from 0.93 to 0.96."
+
+additionalProperties: false

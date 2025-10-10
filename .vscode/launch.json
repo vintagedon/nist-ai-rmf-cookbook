@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File (venv-global, no conda)",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "python": "D:\\AI-ML\\venv-global\\python.exe",
+      "envFile": "D:\\AI-ML\\global-env\\research.env",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}
