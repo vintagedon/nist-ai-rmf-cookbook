@@ -59,7 +59,11 @@
     "operationalization",
     "HITRUST",
     "crosswalking",
-    "X",
+    "Zenodo",
+    "bibtex",
+    "electrotechnical",
+    "Gebru",
+    "datasheets",
     "venv"
   ],
   "ignorePaths": [

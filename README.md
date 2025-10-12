@@ -5,6 +5,7 @@ Real-world AI governance from a team figuring it out. Your implementation will l
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-orange.svg)]()
 [![Status](https://img.shields.io/badge/status-in--use-green.svg)]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17332823.svg)](https://doi.org/10.5281/zenodo.17332823)
 
 > Project Status: v0.1 - Operational (Q4 2025)  
 > We formalized AI governance for our own research cluster and documented the process. We had to do this work anyway—we're sharing it because we believe in open science. The learning might be bidirectional.
@@ -18,6 +19,8 @@ If you're using AI tools productively but managing them informally—making deci
 We run a research cluster that uses AI extensively. Local models, commercial APIs, public and sensitive data. We realized we had no formal governance framework—just ad-hoc decisions and unwritten policies. The NIST AI Risk Management Framework existed, but it's deliberately abstract. It tells you *what* to think about and *why* it matters, but the *how* is up to you.
 
 So we did what we had to do anyway: we formalized our own governance. But instead of keeping it internal, we're documenting the entire process publicly. Not because we think we've cracked the code, but because we believe the learning might be bidirectional—you might learn from our implementation, and we'll definitely learn from your feedback.
+
+> 📘 New to NIST AI RMF? No prior knowledge required. This repository documents practical implementation, not framework theory. For foundational understanding, see the [NIST AI RMF Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook) [2]. We translate frameworks into working systems—you can learn as you go.
 
 ### Our Approach
 
@@ -150,7 +153,7 @@ Then we crosswalked to complementary frameworks because different stakeholders c
 
 ### What v0.1 Formalizes
 
-Here's how our actual artifacts map to the AI RMF functions:
+Here's how our actual artifacts map to the AI RMF functions (as defined in NIST AI 100-1 § 2):
 
 GOVERN Function:
 
@@ -180,7 +183,7 @@ This isn't theoretical compliance—it's our actual operational system.
 
 ---
 
-## 📍 Where This Goes Next
+## 🗓️ Where This Goes Next
 
 ### Change Log
 
@@ -190,12 +193,12 @@ This isn't theoretical compliance—it's our actual operational system.
 
 ### v0.2/0.3 Preview: Framework-Guided Decision Making
 
-We've informally decided Business ChatGPT might be worth exploring with it's added security controls and team functions. Now we'll use our v0.1 framework to evaluate it formally in v0.2.
+We've informally decided Business ChatGPT might be worth exploring with its added security controls and team functions. Now we'll use our v0.1 framework to evaluate it formally in v0.2.
 
 The context:
 
 - Potential replacement for ChatGPT Plus in our Tier 1 (daily workhorse) slot
-- connectors enable secure access to Outlook, Teams, and SharePoint
+- Connectors enable secure access to Outlook, Teams, and SharePoint
 - We run a hybrid cloud tenancy—this touches organizational data governance
 
 What we'll document:
@@ -429,7 +432,7 @@ Planned:
 - CI/CD integration examples (GitHub Actions workflows)
 - Evidence artifact handling patterns
 
-### 🔌 Future: Phase 4 - Integration (Q2-Q3 2026)
+### 📌 Future: Phase 4 - Integration (Q2-Q3 2026)
 
 Planned:
 
@@ -590,6 +593,91 @@ If you're using AI tools productively but managing them informally, you're where
 If you're building AI governance from scratch, this operational example shows it's achievable with realistic resource constraints. You don't need an army of consultants—you need a systematic approach and the willingness to document as you go.
 
 We're learning as we build. So are you. Let's learn together.
+
+---
+
+## 🔬 Citation & Archival Record
+
+This repository is archived and versioned through Zenodo to ensure long-term availability and provide stable citation for academic and professional use.
+
+Version 0.1.0 Citation:
+
+Donald, F. (2025). *NIST AI RMF Cookbook: Operational Templates and Schemas for AI Governance Implementation (0.1)*. Zenodo. <https://doi.org/10.5281/zenodo.17332823>
+
+Why this matters:
+
+Governance frameworks need stable references. When you cite this work in policies, audit documentation, or research, the DOI ensures the specific version you referenced remains accessible. As we release new versions (v0.2 evaluating Business GPT, v0.3 with automation tools), each gets its own DOI. Your citations stay accurate.
+
+When to cite:
+
+- Adapting our policy templates for your organization
+- Using our schemas in your documentation systems
+- Referencing our framework crosswalks in compliance mapping
+- Building on our methodological approach in your research
+
+BibTeX:
+
+```bibtex
+@software{donald_2025_nist_ai_rmf_cookbook,
+  author       = {Donald, Frederick},
+  title        = {{NIST AI RMF Cookbook: Operational Templates and 
+                   Schemas for AI Governance Implementation}},
+  month        = oct,
+  year         = 2025,
+  publisher    = {Zenodo},
+  version      = {0.1.0},
+  doi          = {10.5281/zenodo.17332823},
+  url          = {https://doi.org/10.5281/zenodo.17332823}
+}
+```
+
+---
+
+## ⚖️ Disclaimer
+
+This repository represents an independent, open-source implementation of AI governance frameworks. It is not endorsed by, affiliated with, or representing the official positions of:
+
+- National Institute of Standards and Technology (NIST)
+- International Organization for Standardization (ISO)
+- International Electrotechnical Commission (IEC)
+- European Commission
+- Any other standards body or regulatory authority
+
+This work demonstrates practical application of publicly available frameworks and standards. Organizations should consult official guidance documents and qualified legal/compliance advisors when implementing AI governance programs. The approaches documented here reflect our specific operational context and should be adapted to your organization's requirements, risk tolerance, and regulatory obligations.
+
+---
+
+## 📖 References
+
+### Primary Framework Documents
+
+[1] National Institute of Standards and Technology, "Artificial Intelligence Risk Management Framework (AI RMF 1.0)," NIST AI 100-1, Jan. 2023. [Online]. Available: <https://doi.org/10.6028/NIST.AI.100-1>
+
+[2] National Institute of Standards and Technology, "Artificial Intelligence Risk Management Framework (AI RMF) Playbook," Companion to NIST AI 100-1, Jan. 2023. [Online]. Available: <https://www.nist.gov/itl/ai-risk-management-framework/ai-rmf-playbook>
+
+[3] National Institute of Standards and Technology, "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile," NIST AI 600-1, Jul. 2024. [Online]. Available: <https://doi.org/10.6028/NIST.AI.600-1>
+
+### Supporting Standards and Regulations
+
+[4] International Organization for Standardization, "ISO/IEC 42001:2023 - Information technology — Artificial intelligence — Management system," 2023. [Online]. Available: <https://www.iso.org/standard/81230.html>
+
+[5] International Organization for Standardization, "ISO/IEC 23894:2023 - Information technology — Artificial intelligence — Guidance on risk management," 2023. [Online]. Available: <https://www.iso.org/standard/77304.html>
+
+[6] National Institute of Standards and Technology, "Security and Privacy Controls for Information Systems and Organizations," NIST Special Publication 800-53, Rev. 5, Sep. 2020. [Online]. Available: <https://doi.org/10.6028/NIST.SP.800-53r5>
+
+[7] European Commission, "Regulation (EU) 2024/1689 of the European Parliament and of the Council on Artificial Intelligence (AI Act)," Official Journal of the European Union, Jul. 2024. [Online]. Available: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>
+
+### Technical Resources
+
+[8] OWASP Foundation, "OWASP Top 10 for Large Language Model Applications," v1.1, 2023. [Online]. Available: <https://owasp.org/www-project-top-10-for-large-language-model-applications/>
+
+[9] M. Mitchell et al., "Model Cards for Model Reporting," in Proc. Conference on Fairness, Accountability, and Transparency (FAT* '19), 2019, pp. 220-229. [Online]. Available: <https://doi.org/10.1145/3287560.3287596>
+
+[10] T. Gebru et al., "Datasheets for Datasets," Communications of the ACM, vol. 64, no. 12, pp. 86-92, Dec. 2021. [Online]. Available: <https://doi.org/10.1145/3458723>
+
+### This Repository
+
+[11] F. Donald, "NIST AI RMF Cookbook: Operational Templates and Schemas for AI Governance Implementation," v0.1.0, Zenodo, Oct. 2025. [Online]. Available: <https://doi.org/10.5281/zenodo.17332823>
 
 ---
 
