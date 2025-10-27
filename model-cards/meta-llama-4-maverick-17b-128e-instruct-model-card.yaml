@@ -1,0 +1,269 @@
+# =============================================================================
+# (c) 2025-10-25, v1.0
+# Author: Don Fountain (https://github.com/vintagedon/)
+# Repository: https://github.com/vintagedon/nist-ai-rmf-cookbook
+#
+# This model card is part of the NIST AI RMF Cookbook project, a community
+# resource for AI risk management.
+# =============================================================================
+
+# yaml-language-server: $schema=./schemas/model-card.schema.yaml
+schema_version: "1.0.0"
+
+# # =============================================================================
+# # [MODEL IDENTITY]
+# # Core details about the model's name, vendor, version, and license.
+# # =============================================================================
+model_identity:
+  name: "Llama 4 Maverick 17B-128E-Instruct"
+  vendor: "Meta"
+  model_family: "Llama 4 Maverick"
+  version: "17B-128E-Instruct"
+  release_date: "2025-04-05"
+  model_type: "Large Language Model (multimodal text+image, instruction-tuned)"
+
+  vendor_model_card_url: "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct"
+
+  license: "Llama 4 Community License (commercial, custom)"
+  deprecation_status: "Active"
+
+# # =============================================================================
+# # [TECHNICAL SPECIFICATIONS]
+# # Details on the model's architecture, parameters, modalities, and performance.
+# # =============================================================================
+technical_specifications:
+  architecture:
+    base_architecture: "Mixture-of-Experts (MoE) transformer"
+    parameter_count: "17B activated (~400B total experts) across 128 experts" # :contentReference[oaicite:1]{index=1}
+    context_window: "Up to 1 M tokens (for Maverick series)" # :contentReference[oaicite:2]{index=2}
+
+    training_data_cutoff: "August 2024" # :contentReference[oaicite:3]{index=3}
+
+    architectural_details: |
+      The Maverick variant uses a MoE architecture with 128 experts (activated 17B parameters, total ~400B) trained on multilingual text + image inputs. # :contentReference[oaicite:4]{index=4}
+
+  modalities:
+    supported_inputs: ["text", "image"]
+    supported_outputs: ["text"]
+
+  performance_characteristics:
+    speed_tier: "Not publicly disclosed"
+    cost_tier: "Not publicly disclosed"
+
+    latency: |
+      Not publicly disclosed.
+
+    throughput: |
+      Not publicly disclosed.
+
+# # =============================================================================
+# # [CAPABILITIES & LIMITATIONS]
+# # What the model can do, its performance, known weaknesses, and failure modes.
+# # =============================================================================
+capabilities:
+  vendor_claimed_strengths: |
+    - Instruction-tuned for chat, visual reasoning, multilingual support (at least 12 languages) # :contentReference[oaicite:5]{index=5}  
+    - High benchmark scores: e.g., MMLU (5-shot) ~85.5, MMLU-Pro ~62.9, MATH ~61.2 for the pre-trained model; for instruction-tuned variant: MMLU-Pro (0-shot) ~80.5, GPQA Diamond ~69.8. # :contentReference[oaicite:6]{index=6}  
+    - Tested image understanding up to 5 input images. # :contentReference[oaicite:7]{index=7}  
+
+  benchmark_performance: |
+    Instruction-tuned variant (Maverick):  
+    - MMMU (Image Reasoning) accuracy ~73.4. # :contentReference[oaicite:8]{index=8}  
+    - ChartQA relaxed accuracy ~90.0. # :contentReference[oaicite:9]{index=9}  
+
+  special_capabilities:
+    tools_support: false
+    vision_support: true
+    reasoning_support: true
+    image_generation: false
+    additional_capabilities: ["multilingual text and image understanding", "instruction following", "code generation"]
+
+  known_limitations:
+    vendor_disclosed: |
+      As with all Llama 4 models, the outputs may in some instances be inaccurate or objectionable; developers must conduct safety testing and tuning for their specific applications. # :contentReference[oaicite:10]{index=10}  
+    common_failure_modes: |
+      - Hallucinations or inaccuracies in lesser-trained languages.  
+      - Visual reasoning beyond tested limits (e.g., >5 images) may degrade. # :contentReference[oaicite:11]{index=11}  
+    unsuitable_use_cases: |
+      - Applications requiring full transparency of training data/parameters.  
+      - High-stakes decision-making without human oversight and moderation.
+
+# # =============================================================================
+# # [TRAINING & DATA]
+# # Information on the data and methodology used to train the model.
+# # =============================================================================
+training_information:
+  training_data_description: |
+    Pre-training: ~22 trillion tokens for Maverick; mixed publicly available, licensed data, and Meta product/service data (posts from Instagram/Facebook/interactions). # :contentReference[oaicite:12]{index=12}  
+  training_methodology: |
+    MoE architecture, early fusion for multimodal input, instruction tuning applied for the "Instruct" variant. # :contentReference[oaicite:13]{index=13}  
+  data_privacy_considerations: |
+    The model uses data from Meta’s products and services; developers must verify compliance with privacy and license terms. # :contentReference[oaicite:14]{index=14}  
+
+# # =============================================================================
+# # [INTENDED USE & SCOPE]
+# # Guidance on suitable, unsuitable, and out-of-scope applications.
+# # =============================================================================
+intended_use:
+  vendor_intended_use: |
+    Commercial and research use in multiple languages; instruction-tuned models intended for assistant-like chat and visual reasoning tasks; pre-trained models adaptable to generative tasks. # :contentReference[oaicite:15]{index=15}  
+  suitable_domains: ["multilingual_assistant", "chatbots", "image_understanding", "code_generation"]
+  out_of_scope_use: |
+    Use that violates license/AUP; unsupported languages/capabilities; high-stakes automated decisions without safeguards. # :contentReference[oaicite:16]{index=16}  
+
+# # =============================================================================
+# # [TRUSTWORTHINESS CHARACTERISTICS]
+# # Assessment against the NIST AI RMF's seven trust characteristics:
+# # (Valid/Reliable, Safe, Secure/Resilient, Accountable/Transparent,
+# # Explainable/Interpretable, Privacy-Enhanced, Fair).
+# # =============================================================================
+trustworthiness_assessment:
+  valid_and_reliable:
+    vendor_claims: |
+      Meta provides benchmark tables for reasoning, code and multilingual tasks. # :contentReference[oaicite:17]{index=17}  
+    public_evidence: |
+      Benchmarks provided on Hugging Face model card page. # :contentReference[oaicite:18]{index=18}  
+    assessment_notes: |
+      Strong self-reported performance; independent third-party evaluations limited.
+
+  safe:
+    safety_measures: |
+      Llama 4 system protections referenced (Llama Guard, Prompt Guard, Code Shield) for safe deployment. # :contentReference[oaicite:19]{index=19}  
+    known_safety_issues: |
+      Risks typical of LLMs: misinformation, bias, image-understanding edge cases. # :contentReference[oaicite:20]{index=20}  
+    assessment_notes: |
+      Deployers must integrate moderation, human review, logging.
+
+  secure_and_resilient:
+    security_features: |
+      Not deeply documented; standard security hygiene applies.  
+    known_vulnerabilities: |
+      Prompt injection, adversarial use-cases typical to large models.  
+    assessment_notes: |
+      Requires strong system layer design for enterprise deployment.
+
+  accountable_and_transparent:
+    transparency_level: "Medium"
+    auditability: |
+      Model card provides many details but does not include full architecture or training dataset disclosure.  
+    assessment_notes: |
+      Good operational transparency; limited internals.
+
+  explainable_and_interpretable:
+    explainability_features: |
+      Benchmarks and usage guidelines provided.  
+    interpretability_limitations: |
+      Internal workings (layer counts, expert routing) not detailed.  
+    assessment_notes: |
+      Treat as high-capability black-box model with documented behavior.
+
+  privacy_enhanced:
+    privacy_features: |
+      Data sources include Meta product/service data; some green-house gas and token count disclosures. # :contentReference[oaicite:21]{index=21}  
+    privacy_concerns: |
+      Potential for personal data inclusion; deployers must verify.  
+    assessment_notes: |
+      Sensitive applications should review data lineage and licensing.
+
+  fair_with_harmful_bias_managed:
+    bias_mitigation: |
+      Developers warned to run bias/harm evaluations; no detailed bias mitigation published. # :contentReference[oaicite:22]{index=22}  
+    known_biases: |
+      Not explicitly enumerated.  
+    assessment_notes: |
+      Organisations should conduct their own bias audits across languages/domains.
+
+# # =============================================================================
+# # [EVALUATION GUIDANCE]
+# # Recommendations for testing, validating, and comparing the model.
+# # =============================================================================
+evaluation_guidance:
+  recommended_tests: |
+    - Reproduce benchmark results for your domain (e.g., MMLU, image reasoning, code).  
+    - Multilingual input coverage testing across your supported languages (≤12 supported).  
+    - Visual reasoning tests with up to 5 images; evaluate stability beyond.  
+    - Safety red-teaming (policy violation, image/likeness misuse, hallucinations).  
+    - License/AUP compliance review for your distribution use.
+
+  key_evaluation_questions: |
+    - Does model performance hold on your domain-specific prompts/languages?  
+    - Are moderation, provenance, logging controls sufficient for your risk tolerance?  
+    - Have you evaluated bias/harm in your target user groups and languages?  
+    - Are architectural/licensing constraints acceptable for your deployment?
+
+  comparison_considerations: |
+    - Compare with other Llama 4 variants (Scout) and other family models in terms of expert-count, context length, performance tradeoffs.  
+    - Check license obligations (attribution, redistribution).  
+    - Evaluate trade-offs between activated parameters (~17B) vs total expert size (~400B) for your cost/scale.
+
+# # =============================================================================
+# # [NIST AI RMF MAPPING]
+# # Mapping of model risks to the RMF lifecycle functions (Govern, Map,
+# # Measure, Manage).
+# # =============================================================================
+rmf_function_mapping:
+  govern:
+    notes: |
+      Enforce license/AUP, ensure human-in-loop review for high-stakes use, track attribution ("Built with Llama") if required.
+
+  map:
+    context_considerations: |
+      Consider multilingual and image-input context, domain risk factors (misinformation, likeness misuse, prompt injection).  
+    risk_categories: ["hallucination", "bias", "privacy_leakage", "prompt_injection", "image_understanding_misuse"]
+
+  measure:
+    suggested_metrics: |
+      - Accuracy/factuality error rate by domain/language.  
+      - Safety incident rate per 1k requests.  
+      - Latency/throughput performance for your environment.  
+      - Moderation override rate and false positive/negative rates.
+
+  manage:
+    risk_management_considerations: |
+      Use layered controls (moderation, logging, human review); enable rollback mechanisms; monitor for unusual output trends; validate visual reasoning and multilingual behavior for your user base.
+
+# # =============================================================================
+# # [REFERENCES & SOURCES]
+# # Citations and links to source documentation, papers, and articles.
+# # =============================================================================
+references:
+  vendor_documentation:
+  - url: "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct"
+    description: "Hugging Face model card for Llama 4 Maverick 17B-128E Instruct"
+  - url: "https://huggingface.co/RedHatAI/Llama-4-Maverick-17B-128E-Instruct"
+    description: "Validated model repo with detailed specs and training/benchmark data"   # :contentReference[oaicite:23]{index=23}  
+
+  benchmarks:
+  - name: "Pre-trained & Instruction-tuned benchmark table"
+    url: "https://huggingface.co/RedHatAI/Llama-4-Maverick-17B-128E-Instruct"
+    result: "See MMLU, MATH, ChartQA, MMMU etc benchmark numbers"   # :contentReference[oaicite:24]{index=24}  
+
+  third_party_evaluations:
+  - source: ""
+    url: ""
+    summary: ""
+
+  news_coverage:
+  - title: ""
+    url: ""
+    date: ""
+
+# # =============================================================================
+# # [CARD METADATA]
+# # Information about the model card document itself (author, version, history).
+# # =============================================================================
+metadata:
+  card_version: "1.0"
+  card_author: "Don Fountain"
+  card_creation_date: "2025-10-24"
+  last_updated: "2025-10-24"
+  information_sources: |
+    Hugging Face model card and detailed repository (RedHatAI) with architectural, training/benchmark, energy/emissions, and use-case detail.
+
+  completeness_assessment: |
+    High for parameters, architecture, data scale, benchmarks; medium for cost/latency/throughput; low for full training dataset disclosure and internal weights.
+
+  change_log:
+  - date: "2025-10-24"
+    author: "Don Fountain"
+    changes: "Initial synthesis from Hugging Face model card."

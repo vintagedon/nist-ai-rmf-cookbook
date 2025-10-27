@@ -1,371 +1,330 @@
-# 🔧 Schemas - Structured Documentation Formats
-
-Machine-Readable Templates for AI System Documentation
+<!--
+---
+title: "Schemas - Machine-Readable Policy Definitions"
+description: "JSON schemas for automating policy validation, enforcement, and integration (Post-0.2)"
+owner: "VintageDon - https://github.com/vintagedon"
+orcid: "https://orcid.org/0009-0008-7695-4093"
+ai_contributor: "Claude (Anthropic)"
+lastReviewed: "2025-10-26"
+version: "1.0"
+status: "Planned"
+tags:
+- type: directory-guide
+- domain: policy-schemas
+- framework: nist-ai-rmf
+- artifact-type: json-schemas
+related_documents:
+- "[NIST AI RMF Cookbook](../README.md)"
+- "[Policy Templates](../policy-templates/README.md)"
+- "[Policies - Proxmox Cluster](../policies-proxmox-cluster/README.md)"
+type: directory-guide
+---
+-->
 
 ---
 
-## 📖 Overview
+# 📐 Schemas
 
-This directory contains JSON Schema definitions (in YAML format) that define the structure for documenting AI systems according to the NIST AI Risk Management Framework. These schemas enable:
-
-- Consistency: Standard format across all AI systems
-- Validation: Automated checks for completeness and correctness
-- Interoperability: Machine-readable formats that integrate with GRC tools
-- Auditability: Clear, structured evidence of governance practices
+Machine-readable JSON schemas for automating policy validation, configuration enforcement, and tool integration across the NIST AI RMF Cookbook ecosystem.
 
 ---
 
-## 📂 Available Schemas
+## 📖 1. Overview
 
-### Core Documentation Schemas
+### What This Directory Will Contain (Post-0.2)
 
-| Schema | Purpose | Primary RMF Function |
-|--------|---------|---------------------|
-| [model-card.schema.yaml](model-card.schema.yaml) | Documents AI model properties, limitations, and intended use | MAP (understanding system capabilities) |
-| [data-card.schema.yaml](data-card.schema.yaml) | Documents training/evaluation datasets, provenance, and preprocessing | MAP (understanding data context) |
-| [risk.schema.yaml](risk.schema.yaml) | Identifies and documents AI-specific risks | MAP (risk identification) |
-| [control-mapping.schema.yaml](control-mapping.schema.yaml) | Maps risks to mitigations, controls, and evidence artifacts | MANAGE (risk treatment) |
-| [eval-metrics.schema.yaml](eval-metrics.schema.yaml) | Defines evaluation metrics, testing methodologies, and acceptance criteria | MEASURE (performance evaluation) |
+This directory will house JSON schemas that enable programmatic interaction with policies, standards, and governance artifacts. Schemas transform human-readable policies into machine-enforceable rules, supporting automation, validation, and integration workflows.
+
+### Purpose & Scope
+
+Primary Purpose: Enable automation and validation through:
+
+- Policy compliance checking (validate configurations against policy requirements)
+- Model card validation (ensure required fields are complete and accurate)
+- Risk scenario structure enforcement (standardize risk documentation)
+- Tool integration (enable third-party tools to consume policy data)
+- CI/CD pipeline integration (automated policy compliance checks)
+
+Planned Scope Coverage:
+
+- Model Card Schemas: Validate YAML model cards against required structure
+- Risk Scenario Schemas: Enforce standardized risk documentation format
+- Policy Metadata Schemas: Validate policy front matter and versioning
+- Framework Mapping Schemas: Structure compliance crosswalk data
+- Configuration Schemas: Define valid AI system configurations per policy
+
+### Target Audience
+
+Primary Users:
+
+- DevOps engineers integrating policy checks into CI/CD
+- Security teams automating compliance validation
+- Tool developers building AI governance platforms
+- Compliance officers generating automated reports
+- Operations teams enforcing configuration standards
+
+Prerequisites:
+
+- Understanding of JSON Schema specification
+- Familiarity with policy and model card structures
+- Knowledge of automation and validation workflows
 
 ---
 
-## 🚀 Quick Start
+## 📂 2. Planned Files & Structure
 
-### For Your First AI System
+### Future Directory Structure
 
-Step 1: Choose Relevant Schemas
-
-Not every AI system needs all schemas. Start with:
-
-- Always required: `model-card.schema.yaml`, `risk.schema.yaml`
-- For systems using external data: Add `data-card.schema.yaml`
-- For production systems: Add `control-mapping.schema.yaml`, `eval-metrics.schema.yaml`
-
-Step 2: Create Instance Files
-
-Copy the schema structure into your project:
-
-```bash
-# In your AI system's repository
-mkdir -p governance/
-cp path/to/schemas/model-card.schema.yaml governance/my-system-model-card.yaml
+```markdown
+schemas/
+├── 📄 README.md                                  # This file
+│
+├── 📋 Core Schemas (Planned Post-0.2)
+│   ├── model-card-schema.json                   # Model card YAML structure validation
+│   ├── risk-scenario-schema.json                # Risk scenario standardization
+│   ├── policy-metadata-schema.json              # Policy front matter validation
+│   └── framework-mapping-schema.json            # Compliance crosswalk structure
+│
+├── 📋 Configuration Schemas (Planned)
+│   ├── ai-deployment-config-schema.json         # Valid AI system deployment configs
+│   ├── access-control-schema.json               # Access control policy enforcement
+│   └── monitoring-config-schema.json            # Logging and monitoring requirements
+│
+└── 📋 Integration Schemas (Planned)
+    ├── audit-report-schema.json                 # Standardized audit report format
+    └── governance-dashboard-schema.json         # Governance metrics structure
 ```
 
-Step 3: Populate Fields
+### Planned Schema Descriptions
 
-Fill in your system's specific details following the schema structure. See [Repository Governance Models](../_repository-governance/models/) for real examples.
+#### Core Schemas
 
-Step 4: Validate
+model-card-schema.json
+Validates model card YAML structure ensuring:
 
-Use a JSON Schema validator to check your files:
+- Required metadata fields present (vendor, model, version)
+- Risk assessments properly structured
+- Framework mappings complete
+- Deployment context documented
+- Compliance fields populated
 
-```bash
-# Example using Python's jsonschema library
-pip install jsonschema pyyaml --break-system-packages
-
-# Validate your instance file
-python tools/scripts/validate_schema.py \
-  --schema schemas/model-card.schema.yaml \
-  --instance governance/my-system-model-card.yaml
-```
-
-(Validation tooling coming in future release)
+Use Case: CI/CD validation of model card pull requests, automated quality checks
 
 ---
 
-## 📋 Schema Usage Guide
+risk-scenario-schema.json
+Enforces risk scenario documentation standards:
 
-### model-card.schema.yaml
+- Risk ID format (R{NN})
+- Impact and likelihood ratings within valid ranges
+- Control mappings structured correctly
+- Framework alignments present
+- Metrics defined
 
-Purpose: Document the core AI model's properties, intended use, limitations, and evaluation.
-
-When to Use:
-
-- For any AI/ML model used in your system
-- Before deploying a model to production
-- When model version changes significantly
-- For third-party models (document what you know)
-
-Key Sections:
-
-- `model_details`: Name, version, owner, license
-- `intended_use`: Primary use cases and out-of-scope uses
-- `evaluation`: Performance metrics and evaluation datasets
-- `ethical_considerations`: Known biases and mitigation strategies
-
-Example Use Cases:
-
-- Large Language Model for chatbot: See [Claude Sonnet 4.5](../_repository-governance/models/claude-sonnet-pro-45/claude-sonnet-45-repository-use.yaml)
-- Local inference model: See [Llama 3.1 8B](../_repository-governance/models/llama-3.1-8b-doc-linter/llama-3.1-8b-doc-linter.yaml)
+Use Case: Automated risk library quality assurance, consistency enforcement
 
 ---
 
-### data-card.schema.yaml
+policy-metadata-schema.json
+Validates policy document front matter:
 
-Purpose: Document datasets used for training, fine-tuning, or evaluation.
+- Version numbers follow semantic versioning
+- Required tags present
+- Dates in valid format
+- Author information complete
+- Framework versions specified
 
-When to Use:
+Use Case: Documentation quality gates, automated metadata extraction
 
-- When training or fine-tuning a model
-- For RAG systems with a knowledge base
-- When using evaluation datasets
-- Any time data quality/provenance matters for risk management
+#### Configuration Schemas
 
-Key Sections:
+ai-deployment-config-schema.json
+Defines valid AI system deployment configurations per policy requirements:
 
-- `dataset_details`: Name, version, description
-- `data_provenance`: Source, collection method, licensing
-- `data_preparation`: Preprocessing, anonymization steps
-- `data_analysis`: Statistics, demographic representation
+- Permitted model vendors and versions
+- Required security controls enabled
+- Access control configurations valid
+- Logging and monitoring enabled
+- Cost controls within budget
 
-Common Patterns:
+Use Case: Infrastructure-as-code validation, deployment approval automation
 
-- Training data: Full provenance, preprocessing, statistics
-- RAG knowledge base: Source documentation, update frequency
-- Evaluation sets: Golden datasets, benchmark descriptions
+#### Integration Schemas
 
----
+audit-report-schema.json
+Standardizes audit report format for automated generation:
 
-### risk.schema.yaml
+- Policy compliance status per framework
+- Control implementation evidence
+- Gap analysis structure
+- Remediation tracking
+- Timestamp and version metadata
 
-Purpose: Identify and document AI-specific risks mapped to NIST AI RMF functions.
-
-When to Use:
-
-- During initial risk assessment (before deployment)
-- When system design changes significantly
-- Quarterly or annual risk reviews
-- When new threat patterns emerge (e.g., new OWASP LLM risks)
-
-Key Sections:
-
-- `risk_id`: Unique identifier
-- `rmf_function`: Which AI RMF function this risk relates to (Govern/Map/Measure/Manage)
-- `description`: Clear explanation of the risk
-- `likelihood` and `impact`: Risk severity assessment
-
-Risk Library:
-Future releases will include a common risk library based on:
-
-- OWASP LLM Top 10
-- NIST AI security guidance
-- Industry-specific threat patterns
+Use Case: Automated compliance reporting, audit preparation
 
 ---
 
-### control-mapping.schema.yaml
+## 🎯 3. Framework Alignment
 
-Purpose: Map identified risks to specific mitigations, controls, and evidence artifacts.
+### NIST AI RMF Support
 
-When to Use:
+JSON schemas will support AI RMF implementation through automation:
 
-- After risk identification (follows risk.yaml creation)
-- To document risk treatment strategy
-- For audit preparation (evidence linking)
-- When demonstrating control effectiveness
+| Function | Schema Support | Automation Enabled |
+|----------|---------------|-------------------|
+| Govern | Policy metadata schemas enforce governance structure | Automated policy compliance tracking |
+| Map | Model card schemas capture system context | Automated inventory management |
+| Measure | Risk scenario schemas standardize metrics | Automated risk assessment reporting |
+| Manage | Configuration schemas enforce controls | Automated control validation |
+| Monitor | Monitoring schemas define observability | Automated compliance monitoring |
 
-Key Sections:
+### Automation & Compliance
 
-- `risk_id`: Links to risk from risk.yaml
-- `control_id`: Framework control identifier (e.g., NIST-800-53-RA-5)
-- `mitigation_description`: How the control addresses the risk
-- `implementation_status`: Current implementation state
-- `evidence_url`: Critical - link to verifiable evidence artifact
+CI/CD Integration:
+Schemas enable automated policy checks in development pipelines:
 
-Evidence-Based Compliance:
-The `evidence_url` field is the foundation of auditable compliance. It links claims to proof:
+- Pre-commit validation of model cards and risk scenarios
+- Pull request quality gates (schema validation required)
+- Automated deployment configuration checks
+- Policy drift detection in infrastructure-as-code
 
-- Test reports (JSON, logs)
-- Manual review documentation (Markdown)
-- Configuration files (YAML, JSON)
-- Scan results (security tools output)
+Compliance Reporting:
+Standardized schemas enable automated compliance evidence generation:
 
----
-
-### eval-metrics.schema.yaml
-
-Purpose: Define evaluation metrics, testing methodologies, and acceptance criteria.
-
-When to Use:
-
-- Before deploying to production (define quality bar)
-- For continuous monitoring (track metrics over time)
-- When auditing model performance
-- To document "Measure" function compliance
-
-Key Sections:
-
-- `metric_id`: Unique identifier
-- `metric_name`: Human-readable name (e.g., "Retrieval Precision@5")
-- `methodology`: How the metric is calculated/assessed
-- `acceptance_criteria`: Pass/fail threshold
-- `last_result`: Most recent measurement (value, date, evidence link)
-
-Metric Types:
-
-- Performance: Accuracy, precision, recall, F1
-- Fairness: Demographic parity, equalized odds
-- Security: Prompt injection defense rate
-- Robustness: Adversarial test pass rate
+- ISO 42001 control implementation reports
+- NIST SP 800-53 control status dashboards
+- EU AI Act documentation packages
+- Colorado SB24-205 impact assessment exports
 
 ---
 
-## 🔗 Integration with Other Artifacts
-
-### Relationship to Policies
-
-Schemas enable policy enforcement:
-
-- Policy says: "Document all AI models before deployment"
-- Schema provides: Structured format for that documentation
-- Validation ensures: No deployment without completed model card
-
-### Relationship to Examples
-
-Schemas structure real-world artifacts:
-
-- [Repository Governance](../_repository-governance/) contains instance files
-- These demonstrate how schemas are populated with actual data
-- Git history shows schema-driven documentation evolution
-
-### Relationship to Framework Crosswalks
-
-Schemas map to multiple frameworks:
-
-- See [docs/crosswalks.md](../docs/crosswalks.md) for detailed mappings
-- NIST AI RMF → ISO 42001 → EU AI Act
-- One schema, multiple compliance targets
-
----
-
-## 🛠️ Advanced Usage
-
-### Schema Evolution
-
-Version Management:
-All schemas include a `schema_version` field. When schemas evolve:
-
-1. Increment version following semantic versioning
-2. Document changes in schema comments
-3. Provide migration guidance for existing instance files
-
-Backward Compatibility:
-Minor version changes (1.0.0 → 1.1.0) maintain backward compatibility. Major version changes (1.0.0 → 2.0.0) may break existing files.
-
-### Extending Schemas
-
-Add Organization-Specific Fields:
-
-Schemas can be extended for your organization's needs:
-
-```yaml
-# In your instance file
-schema_version: 1.0.0
-model_details:
-  name: "Internal-Classifier-v2"
-  # ... standard fields ...
-
-# Organization-specific extensions
-internal_tracking:
-  jira_epic: "AI-1234"
-  cost_center: "ML-Engineering"
-  compliance_tier: "High-Risk"
-```
-
-Extensions should be additive (don't remove required fields).
-
-### Automation Integration
-
-CI/CD Validation:
-
-Future releases will include GitHub Actions workflows:
-
-```yaml
-# .github/workflows/schema-validation.yml
-name: Validate Governance Artifacts
-on: [pull_request]
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Validate Model Cards
-        run: python tools/scripts/validate_schema.py --all
-```
-
-GRC Tool Export:
-
-Validated YAML instances can be transformed into:
-
-- OSCAL (Open Security Controls Assessment Language)
-- GRC tool-specific formats (GovReady-Q, OpenGRC)
-- Audit report templates
-
----
-
-## 📚 Related Resources
+## 📚 4. Related Resources
 
 ### Within This Repository
 
-- [📁 Repository Governance Models](../_repository-governance/models/) - Real-world schema instances
-- [📋 Policies](../policies/) - Policies that these schemas help enforce
-- [📚 Examples](../examples/) - Schema usage demonstrated through dogfooding
-- [📖 Docs](../docs/) - Framework alignment and methodology
+Parent Directory:
+
+- [📁 NIST AI RMF Cookbook](../README.md) - Repository root
+
+Content to be Validated:
+
+- [📁 Model Cards](../model-cards/README.md) - Model cards that schemas will validate
+- [📁 Policy Templates](../policy-templates/README.md) - Policies with metadata schemas
+- [📁 Policies - Proxmox Cluster](../policies-proxmox-cluster/README.md) - Implementation using schemas
+- [📁 Risk Scenarios](../policies-proxmox-cluster/risk-scenarios/README.md) - Risk scenarios to standardize
+
+### Planned Use Cases
+
+For DevOps Teams:
+
+1. Integrate schema validation into CI/CD pipelines
+2. Automate model card quality checks on pull requests
+3. Validate infrastructure configurations against policies
+4. Generate automated compliance reports
+5. Detect policy drift in deployments
+
+For Compliance Officers:
+
+1. Generate automated compliance evidence packages
+2. Validate framework mappings for completeness
+3. Export standardized audit reports
+4. Track control implementation status programmatically
+5. Monitor policy adherence across systems
+
+For Tool Developers:
+
+1. Build governance platforms using standard schemas
+2. Create model card management tools
+3. Develop risk assessment automation
+4. Integrate with existing compliance tools
+5. Build AI governance dashboards
 
 ### External Resources
 
-- [JSON Schema](https://json-schema.org/) - Schema specification standard
-- [YAML](https://yaml.org/) - Human-readable data serialization format
-- [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) - The framework these schemas operationalize
+JSON Schema Resources:
+
+- [JSON Schema Specification](https://json-schema.org/) - Official JSON Schema standard
+- [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/) - Comprehensive guide
+- [JSON Schema Validator](https://www.jsonschemavalidator.net/) - Online validation tool
+
+Schema Development Tools:
+
+- [Ajv](https://ajv.js.org/) - JSON Schema validator for JavaScript
+- [jsonschema (Python)](https://python-jsonschema.readthedocs.io/) - Python schema validation
+- [quicktype](https://quicktype.io/) - Generate schemas from JSON examples
+
+Automation Integration:
+
+- [GitHub Actions JSON Schema](https://docs.github.com/en/actions) - CI/CD integration patterns
+- [pre-commit framework](https://pre-commit.com/) - Git hooks for validation
+- [Terraform](https://www.terraform.io/) - Infrastructure-as-code policy enforcement
+
+### Contributing (Post-0.2)
+
+When schemas are added, contributors can:
+
+- Propose new schemas for governance artifacts
+- Improve validation rules based on operational experience
+- Add examples demonstrating schema usage
+- Create integration guides for common tools
+- Report schema bugs or validation issues
+
+Quality Standards for Schemas:
+
+- Follow JSON Schema specification strictly
+- Include comprehensive examples
+- Document validation rules clearly
+- Provide error messages that guide fixes
+- Test against actual repository artifacts
+
+### Community & Support
+
+Questions about Schemas (Post-0.2):
+
+- Open an issue: [GitHub Issues](https://github.com/vintagedon/nist-ai-rmf-cookbook/issues) with label `schemas`
+- Start a discussion: [GitHub Discussions](https://github.com/vintagedon/nist-ai-rmf-cookbook/discussions)
+
+Future: Report Schema Issues:
+
+- Tag with: `bug`, `schemas`, `[schema-name]`
+- Include: Schema filename, validation error, artifact causing issue
+
+Future: Request New Schemas:
+
+- Tag with: `enhancement`, `schemas`
+- Describe: Artifact type, validation needs, automation use case
 
 ---
 
-## 🤝 Contributing
+## 📋 5. Documentation Metadata
 
-### Schema Improvements Welcome
+### Authorship & Collaboration
 
-We welcome contributions that:
+Primary Author: VintageDon ([GitHub Profile](https://github.com/vintagedon))  
+ORCID: [0009-0008-7695-4093](https://orcid.org/0009-0008-7695-4093)  
+Methodology: See [Documentation Methodology](../docs/methodology.md) for development approach
 
-- Add missing fields based on real-world usage
-- Improve descriptions and examples
-- Fix validation errors or ambiguities
-- Extend schemas for industry-specific needs
+### Version History
 
-### Contribution Guidelines
+| Version | Date | Changes | Author |
+|---------|------|---------|--------|
+| 1.0 | 2025-10-26 | Initial schemas directory placeholder (post-0.2 planned) | VintageDon |
 
-When proposing schema changes:
+### Planned Schema Statistics (Post-0.2)
 
-1. Maintain backward compatibility (for minor versions)
-2. Document rationale - explain why the change is needed
-3. Provide examples - show how the new field would be used
-4. Update related docs - crosswalks, methodology, policies
+- Core Schemas: 4 (model cards, risk scenarios, policy metadata, framework mappings)
+- Configuration Schemas: 3 (deployment, access control, monitoring)
+- Integration Schemas: 2 (audit reports, governance dashboards)
+- Validation Scope: Model cards, policies, risk scenarios, configurations
+- Automation Support: CI/CD, compliance reporting, drift detection
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) (when created) for detailed guidance.
+### Repository Information
 
----
-
-## 🔄 Schema Maintenance
-
-Current Status: Foundational (v0.1)
-
-These schemas are stable for initial use but will evolve based on:
-
-- Community feedback and adoption patterns
-- Emerging AI risk patterns (e.g., new OWASP guidance)
-- Regulatory developments (e.g., EU AI Act RTS)
-- GRC tool integration requirements
-
-Review Cycle: Quarterly
-
-Next Review: 2025-12-31
+Repository: [nist-ai-rmf-cookbook](https://github.com/vintagedon/nist-ai-rmf-cookbook)  
+License: MIT  
+Framework Version: NIST AI RMF 1.0 (January 2023)  
+Status: Planned for post-0.2 release
 
 ---
 
-Document Version: 1.0  
-Last Updated: 2025-10-10  
-Status: Published  
-Schema Version: 1.0.0 (all schemas)
-
----
-
-*Structured documentation enables automated compliance. These schemas are the foundation.*
+Document Version: 1.0 | Last Updated: 2025-10-26 | Status: Planned | Directory: schemas

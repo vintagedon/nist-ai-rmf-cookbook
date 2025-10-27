@@ -1,0 +1,455 @@
+# yaml-language-server: $schema=./schemas/model-card.schema.yaml
+# GUIDANCE: This is a comprehensive AI model card template following NIST AI RMF principles
+# Structure is YAML for machine-readability and schema validation
+# Each section includes guidance comments explaining what to document and why
+
+schema_version: "1.0.0"
+
+# =============================================================================
+# MODEL IDENTITY
+# =============================================================================
+# GUIDANCE: Basic identifying information for the model. This section answers:
+# WHO made it, WHAT is it called, WHEN was it released, WHAT type is it.
+# Be specific with version numbers and model family relationships.
+
+model_identity:
+  name: "[Model Name]"
+  vendor: "[Vendor/Organization Name]"
+  model_family: "[Model Family if applicable, e.g., GPT, Claude, Llama]"
+  version: "[Version number or identifier]"
+  release_date: "[YYYY-MM-DD or approximate date]"
+  model_type: "[Category - e.g., 'Large Language Model', 'Text-to-Image', 'Speech Recognition', 'Multimodal']"
+
+  vendor_model_card_url: "[URL to vendor's official model card/documentation]"
+
+  # GUIDANCE: License critically affects deployment decisions. Be specific.
+  # Examples: "Apache 2.0", "MIT", "Proprietary - Commercial License", "CC-BY-NC 4.0"
+  license: "[License type and key restrictions]"
+  
+  # GUIDANCE: Track if model is current, deprecated, or superseded
+  deprecation_status: "[Active / Deprecated / Superseded by X]"
+
+# =============================================================================
+# MODEL ARCHITECTURE & TECHNICAL SPECIFICATIONS
+# =============================================================================
+# GUIDANCE: Technical details that inform deployment decisions, resource planning,
+# and capability assessment. Include only what's publicly disclosed or verifiable.
+
+technical_specifications:
+  architecture:
+    # GUIDANCE: Describe base architecture type and key design choices
+    base_architecture: "[e.g., 'Transformer decoder', 'Diffusion model', 'Hybrid LM + codec', 'Feed-forward geometric predictor']"
+    
+    # GUIDANCE: Parameter count affects resource requirements. Use "Not publicly disclosed" if unavailable.
+    parameter_count: "[Number or range, e.g., '7B', '175B', '~0.7B', 'Not publicly disclosed']"
+    
+    # GUIDANCE: For text models, context window size. Use "Not applicable" for non-text models.
+    context_window: "[Token count or 'Not applicable']"
+    
+    # GUIDANCE: Training data cutoff date for knowledge-based models
+    training_data_cutoff: "[YYYY-MM-DD or 'Not publicly disclosed']"
+
+    # GUIDANCE: Additional architectural details relevant to deployment or capability understanding
+    architectural_details: |
+      [Describe key architectural features, design choices, training techniques, or unique capabilities.
+      Examples: "Uses sparse mixture-of-experts", "Supports image + text inputs", "Multi-modal prior prompting",
+      "Includes safety fine-tuning with RLHF"]
+
+  modalities:
+    # GUIDANCE: List all supported input modalities
+    supported_inputs: ["text", "image", "audio", "video", "other"]
+    
+    # GUIDANCE: List all supported output modalities
+    supported_outputs: ["text", "image", "audio", "video", "3D", "other"]
+
+  performance_characteristics:
+    # GUIDANCE: General speed tier for planning purposes
+    speed_tier: "[e.g., 'Real-time', 'Near real-time', 'Batch optimized', 'Resource intensive']"
+    
+    # GUIDANCE: General cost tier relative to alternatives
+    cost_tier: "[e.g., 'Low', 'Moderate', 'High', 'Enterprise']"
+    
+    # GUIDANCE: Typical latency characteristics
+    latency: "[e.g., 'Seconds per generation', 'Real-time on single GPU', 'Minutes for complex tasks', 'Not specified']"
+    
+    # GUIDANCE: Throughput if specified
+    throughput: "[e.g., 'X requests/second', 'Y tokens/second', 'Not specified']"
+
+# =============================================================================
+# CAPABILITIES & LIMITATIONS
+# =============================================================================
+# GUIDANCE: This section separates vendor claims from verified evidence and
+# documents known limitations. Critical for risk assessment and deployment decisions.
+
+capabilities:
+  # GUIDANCE: Quote or paraphrase vendor's claimed strengths. Attribute to vendor.
+  vendor_claimed_strengths: |
+    [What does the vendor claim this model does well? Be specific about claimed capabilities,
+    use cases, and performance characteristics. Cite vendor documentation.]
+
+  # GUIDANCE: Public benchmark results if available. Note absence if not published.
+  benchmark_performance: |
+    [List any published benchmark scores (e.g., MMLU, HumanEval, COCO FID scores).
+    Note: "No widely published benchmark scores" if unavailable. Include citations.]
+
+  special_capabilities:
+    # GUIDANCE: Does model support function/tool calling?
+    tools_support: false  # true/false
+    
+    # GUIDANCE: Does model support vision/image understanding?
+    vision_support: false  # true/false
+    
+    # GUIDANCE: Does model support advanced reasoning (chain-of-thought, etc.)?
+    reasoning_support: false  # true/false
+    
+    # GUIDANCE: Does model generate images?
+    image_generation: false  # true/false
+    
+    # GUIDANCE: List any other notable capabilities
+    additional_capabilities: ["capability_1", "capability_2"]
+
+  known_limitations:
+    # GUIDANCE: Limitations disclosed by vendor in documentation
+    vendor_disclosed: |
+      [What limitations does vendor acknowledge? Examples: language support gaps,
+      quality degradation scenarios, unsupported use cases, known failure modes.]
+
+    # GUIDANCE: Commonly observed failure modes from public reports or testing
+    common_failure_modes: |
+      [What failure patterns are known from community reports, research, or testing?
+      Examples: hallucination patterns, bias manifestations, edge case failures.]
+
+    # GUIDANCE: Explicitly state unsuitable use cases
+    unsuitable_use_cases: |
+      [What should this model NOT be used for? Examples: high-stakes decisions without
+      human review, regulated domains without validation, tasks requiring capabilities
+      the model lacks.]
+
+# =============================================================================
+# TRAINING & DATA
+# =============================================================================
+# GUIDANCE: Training information affects privacy, bias, and capability assessment.
+# Document what's disclosed and explicitly note gaps in transparency.
+
+training_information:
+  # GUIDANCE: Describe training data if disclosed
+  training_data_description: |
+    [What data was used for training? Include: dataset names, sizes, sources, time periods,
+    languages, modalities. Note: "Not publicly disclosed" for gaps.]
+
+  # GUIDANCE: Training methodology and techniques
+  training_methodology: |
+    [Describe training approach: supervised/unsupervised/reinforcement learning, fine-tuning,
+    RLHF, curriculum learning, etc. Note: "Not publicly disclosed" for gaps.]
+
+  # GUIDANCE: Privacy and data handling considerations
+  data_privacy_considerations: |
+    [Note any disclosed PII filtering, consent mechanisms, data sourcing transparency,
+    or lack thereof. Flag concerns for sensitive deployments.]
+
+# =============================================================================
+# INTENDED USE & SCOPE
+# =============================================================================
+# GUIDANCE: Document vendor's intended use AND your assessment of suitable/unsuitable
+# domains. This section guides deployment decisions.
+
+intended_use:
+  # GUIDANCE: Vendor's stated intended use cases
+  vendor_intended_use: |
+    [What use cases does vendor describe or promote? Cite vendor documentation.]
+
+  # GUIDANCE: Your assessment of suitable deployment domains
+  suitable_domains: ["domain_1", "domain_2", "domain_3"]
+
+  # GUIDANCE: Your assessment of out-of-scope use cases
+  out_of_scope_use: |
+    [What use cases fall outside the model's design intent or safe deployment boundaries?
+    Consider regulatory requirements, safety concerns, capability limitations.]
+
+# =============================================================================
+# TRUSTWORTHINESS CHARACTERISTICS
+# =============================================================================
+# GUIDANCE: Assess model against NIST AI RMF's 7 trustworthiness characteristics.
+# Structure: Vendor claims → Public evidence → Your assessment notes.
+# Be explicit about evidence quality and gaps.
+
+trustworthiness_assessment:
+  # CHARACTERISTIC 1: Valid and Reliable
+  valid_and_reliable:
+    # GUIDANCE: What does vendor claim about accuracy, robustness, generalization?
+    vendor_claims: |
+      [Vendor's claims about model validity and reliability. Cite documentation.]
+
+    # GUIDANCE: What public evidence exists? Benchmarks, tests, research papers?
+    public_evidence: |
+      [Independent evaluations, published benchmarks, research findings, community testing.]
+
+    # GUIDANCE: Your assessment for deployment decisions
+    assessment_notes: |
+      [Your evaluation: Is model suitable for intended use? What validation is needed?
+      What are confidence levels for different domains?]
+
+  # CHARACTERISTIC 2: Safe
+  safe:
+    # GUIDANCE: What safety measures does vendor implement?
+    safety_measures: |
+      [Documented safety features: content filtering, guardrails, safety fine-tuning,
+      acceptable use policies, watermarking, etc.]
+
+    # GUIDANCE: What safety issues are known or likely?
+    known_safety_issues: |
+      [Documented safety concerns: potential misuse scenarios, harmful content generation,
+      bias amplification, privacy leakage, etc.]
+
+    # GUIDANCE: Your safety assessment for deployment
+    assessment_notes: |
+      [What additional safety controls are needed? What monitoring is required?
+      What use cases present unacceptable safety risks?]
+
+  # CHARACTERISTIC 3: Secure and Resilient
+  secure_and_resilient:
+    # GUIDANCE: What security features exist?
+    security_features: |
+      [Security measures: model access controls, deployment options (local/cloud),
+      update mechanisms, vulnerability disclosure processes.]
+
+    # GUIDANCE: What vulnerabilities are known or likely?
+    known_vulnerabilities: |
+      [Security concerns: adversarial input risks, prompt injection, data exfiltration,
+      resource exhaustion, model extraction risks.]
+
+    # GUIDANCE: Your security assessment
+    assessment_notes: |
+      [What security controls are needed for your deployment? What monitoring?
+      What threat models are most concerning?]
+
+  # CHARACTERISTIC 4: Accountable and Transparent
+  accountable_and_transparent:
+    # GUIDANCE: Rate transparency level
+    transparency_level: "[High / Medium / Low]"
+
+    # GUIDANCE: What audit capabilities exist?
+    auditability: |
+      [What documentation exists? Can decisions be traced? Are logs available?
+      Is training data disclosed? Are model cards comprehensive?]
+
+    # GUIDANCE: Your transparency assessment
+    assessment_notes: |
+      [Is transparency sufficient for your governance needs? What gaps exist?
+      What additional documentation is required for regulated use?]
+
+  # CHARACTERISTIC 5: Explainable and Interpretable
+  explainable_and_interpretable:
+    # GUIDANCE: What explainability features exist?
+    explainability_features: |
+      [Documented explainability: attention visualization, confidence scores,
+      reasoning traces, interpretability tools, explanation generation.]
+
+    # GUIDANCE: What are interpretability limitations?
+    interpretability_limitations: |
+      [Black box characteristics, lack of causal explanations, unexplainable outputs,
+      hidden training data influences.]
+
+    # GUIDANCE: Your explainability assessment
+    assessment_notes: |
+      [Is explainability sufficient for your use cases? What high-stakes decisions
+      require human-interpretable explanations? Where are gaps?]
+
+  # CHARACTERISTIC 6: Privacy-Enhanced
+  privacy_enhanced:
+    # GUIDANCE: What privacy features exist?
+    privacy_features: |
+      [Privacy protections: local deployment options, data minimization, PII filtering,
+      encryption, access controls, training opt-out.]
+
+    # GUIDANCE: What privacy concerns exist?
+    privacy_concerns: |
+      [Privacy risks: training data memorization, PII leakage, inference privacy,
+      unknown data sources, lack of consent mechanisms.]
+
+    # GUIDANCE: Your privacy assessment
+    assessment_notes: |
+      [What additional privacy controls are needed? Is model suitable for processing
+      sensitive data? What regulatory requirements apply?]
+
+  # CHARACTERISTIC 7: Fair - with Harmful Bias Managed
+  fair_with_harmful_bias_managed:
+    # GUIDANCE: What bias mitigation exists?
+    bias_mitigation: |
+      [Documented bias mitigation: diverse training data, bias testing, fairness
+      constraints, demographic parity measures, debiasing techniques.]
+
+    # GUIDANCE: What biases are known?
+    known_biases: |
+      [Documented biases: demographic biases, language/dialect performance gaps,
+      cultural biases, representation imbalances, fairness test results.]
+
+    # GUIDANCE: Your fairness assessment
+    assessment_notes: |
+      [What bias testing is needed for your use cases? What populations may be
+      underserved? What fairness metrics matter for your deployment?]
+
+# =============================================================================
+# EVALUATION GUIDANCE
+# =============================================================================
+# GUIDANCE: Provide actionable testing recommendations. This section guides
+# pre-deployment validation and ongoing monitoring.
+
+evaluation_guidance:
+  # GUIDANCE: Specific tests to run before deployment
+  recommended_tests: |
+    [List concrete testing recommendations:
+    - Accuracy/performance tests on your domain data
+    - Latency/throughput benchmarks on your hardware
+    - Safety/bias testing for your use cases
+    - Security testing (adversarial inputs, prompt injection)
+    - Compliance validation (licensing, data handling)
+    - Integration testing with your systems
+    Be specific about metrics and pass/fail criteria.]
+
+  # GUIDANCE: Key questions to answer during evaluation
+  key_evaluation_questions: |
+    [Critical questions for deployment decision:
+    - Does model meet accuracy requirements for our use cases?
+    - Can our infrastructure support resource requirements?
+    - Are licensing terms acceptable for our deployment?
+    - Do safety controls meet our risk appetite?
+    - Are we comfortable with transparency gaps?
+    - Have we validated on representative data?]
+
+  # GUIDANCE: How to compare with alternatives
+  comparison_considerations: |
+    [Guidance for comparing with other models:
+    - What alternative models should be evaluated?
+    - What trade-offs matter most (cost vs. quality, speed vs. accuracy)?
+    - What deployment constraints affect choice (on-device, cloud, hybrid)?
+    - What differentiation matters for your use cases?]
+
+# =============================================================================
+# NIST AI RMF MAPPING
+# =============================================================================
+# GUIDANCE: Map model deployment to NIST AI RMF functions. This section connects
+# model characteristics to your governance framework.
+
+rmf_function_mapping:
+  # GOVERN: Organizational policies and oversight
+  govern:
+    notes: |
+      [How does this model fit into your governance framework?
+      - What policies apply?
+      - Who approves deployment?
+      - What oversight is needed?
+      - What version control/audit requirements exist?]
+
+  # MAP: Context and risk identification
+  map:
+    # GUIDANCE: Relevant context for risk assessment
+    context_considerations: |
+      [What contextual factors affect risk?
+      - Use case context (who, what, where, when, why)
+      - Data sensitivity levels
+      - Stakeholder impacts
+      - Regulatory requirements]
+
+    # GUIDANCE: Primary risk categories for this model
+    risk_categories: ["risk_1", "risk_2", "risk_3"]
+
+  # MEASURE: Metrics and monitoring
+  measure:
+    # GUIDANCE: Key metrics to track
+    suggested_metrics: |
+      [What should you measure?
+      - Performance metrics (accuracy, latency, throughput)
+      - Safety metrics (harmful output rate, bias metrics)
+      - Operational metrics (uptime, error rate)
+      - Compliance metrics (policy violations, audit findings)
+      Be specific about measurement methods and thresholds.]
+
+  # MANAGE: Risk controls and responses
+  manage:
+    # GUIDANCE: Risk management approaches
+    risk_management_considerations: |
+      [How to manage identified risks:
+      - Technical controls (guardrails, monitoring, fallbacks)
+      - Process controls (human review, escalation, logging)
+      - Organizational controls (training, policies, oversight)
+      - Incident response plans
+      - Continuous improvement mechanisms]
+
+# =============================================================================
+# REFERENCES & SOURCES
+# =============================================================================
+# GUIDANCE: Document all information sources for auditability and verification.
+# Distinguish between vendor documentation, independent evaluations, and third-party reports.
+
+references:
+  vendor_documentation:
+    # GUIDANCE: Official vendor sources
+    - url: "[URL]"
+      description: "[What this document contains]"
+
+  benchmarks:
+    # GUIDANCE: Published benchmark results
+    - name: "[Benchmark name]"
+      url: "[URL]"
+      result: "[Key findings or scores]"
+
+  third_party_evaluations:
+    # GUIDANCE: Independent assessments, research papers, community reports
+    - source: "[Source name/type]"
+      url: "[URL]"
+      summary: "[Key findings relevant to assessment]"
+
+# =============================================================================
+# METADATA
+# =============================================================================
+# GUIDANCE: Document card provenance and completeness for governance tracking.
+
+metadata:
+  card_version: "[X.Y - increment when updating card]"
+  card_author: "[Name or role]"
+  card_creation_date: "[YYYY-MM-DD]"
+  last_updated: "[YYYY-MM-DD]"
+  
+  # GUIDANCE: Document what sources informed this card
+  information_sources: |
+    [List primary sources: vendor documentation, press releases, research papers,
+    community reports, direct testing, etc.]
+
+  # GUIDANCE: Assess completeness of available information
+  completeness_assessment: |
+    [Rate information completeness by section:
+    - What information is comprehensive?
+    - What information is partial or limited?
+    - What critical gaps exist?
+    - What would improve confidence in assessment?]
+
+  # GUIDANCE: Track changes to this card over time
+  change_log:
+    - date: "[YYYY-MM-DD]"
+      author: "[Name]"
+      changes: "[What changed and why]"
+
+# =============================================================================
+# TEMPLATE USAGE NOTES
+# =============================================================================
+# This template is structured for:
+# 1. Machine-readable YAML format with schema validation
+# 2. Comprehensive trustworthiness assessment per NIST AI RMF
+# 3. Clear separation of vendor claims vs. independent evidence
+# 4. Actionable evaluation guidance for deployment decisions
+# 5. Governance framework integration via RMF mapping
+# 6. Audit trail through complete references and metadata
+#
+# Adapt sections based on model type:
+# - Text models: Focus on language capabilities, context window, knowledge cutoff
+# - Vision models: Focus on image understanding, generation quality, safety filtering
+# - Audio models: Focus on voice quality, cloning risks, consent mechanisms
+# - Multimodal: Address cross-modal capabilities and novel risk patterns
+#
+# Key principles:
+# - Document what's known, explicitly note gaps
+# - Separate claims from evidence
+# - Provide actionable guidance for deployers
+# - Maintain audit trail through references
+# - Update as new information emerges

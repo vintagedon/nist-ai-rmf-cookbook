@@ -1,0 +1,469 @@
+# yaml-language-server: $schema=./schemas/service-model-card.schema.yaml
+# GUIDANCE: This is a SERVICE-SPECIFIC model card template for AI models deployed
+# within vendor-managed services (SaaS, managed platforms, enterprise tiers).
+# 
+# WHY THIS EXISTS:
+# Traditional model cards assess the AI model itself. But when you deploy a model
+# through a vendor service (ChatGPT Business, Claude Enterprise, Gemini Workspace),
+# you're not just evaluating the model—you're evaluating:
+# - Service features and configuration options
+# - Vendor compliance commitments and certifications
+# - Multi-tenancy boundaries and data isolation
+# - SSO/MFA/RBAC enforcement capabilities
+# - Feature toggles that affect risk (browsing, code execution, integrations)
+# - Pricing and licensing constraints
+#
+# This template captures the SERVICE WRAPPER around the model, while referencing
+# a separate traditional model card for the underlying AI model characteristics.
+#
+# USE THIS WHEN:
+# - Evaluating vendor-managed AI services (not direct model API access)
+# - Service configuration materially affects risk profile
+# - Vendor provides compliance guarantees at service tier (not just model)
+# - You need to document approved configuration and change control
+# - Organizational controls layer on top of vendor features
+
+card_type: "hybrid-service-model-card"
+title: "[Service Name] - Hybrid Service Card"
+version: "[X.Y.Z]"
+phase: "[Governance maturity phase, e.g., 0.2, 1.0]"
+status: "[draft / active / deprecated]"
+author: "[Card author name or role]"
+repository: "[GitHub/GitLab repo URL if applicable]"
+
+# GUIDANCE: Link to related artifacts - don't duplicate, reference
+related_artifacts:
+  # GUIDANCE: Reference the underlying model card for technical AI assessment
+  underlying_model_card: "[Path or URL to model card, e.g., ./vendor-model-name-model-card.yaml]"
+  
+  # GUIDANCE: Link to supplemental governance documentation
+  supplemental_docs:
+    - "[Path to evaluation worklog]"
+    - "[Path to ADR for adoption decision]"
+    - "[Path to risk assessment if separate]"
+
+# GUIDANCE: Where this fits in your governance framework
+governance_function: "[GOVERN / MAP / MEASURE / MANAGE or combination]"
+review_cadence: "[quarterly / semi-annual / annual / triggered]"
+last_reviewed: "[YYYY-MM-DD or null]"
+next_review_due: "[YYYY-MM-DD or null]"
+
+# GUIDANCE: RACI model for this service deployment
+owners:
+  responsible:
+    handle: "[User/team handle]"
+    role: "[Role title - who executes day-to-day]"
+  
+  governing:
+    name: "[Governance body name]"
+    role: "[Who approves changes and reviews]"
+  
+  accountable:
+    name: "[Organizational unit]"
+    role: "[Ultimate accountability - often C-suite or board]"
+
+# =============================================================================
+# OBJECT UNDER GOVERNANCE
+# =============================================================================
+# GUIDANCE: Define what you're actually governing - the service, not just the model
+
+object_under_governance:
+  service_name: "[Vendor service name and tier, e.g., 'ChatGPT Business', 'Claude Enterprise']"
+  provider: "[Vendor name]"
+  
+  # GUIDANCE: How is this deployed? SaaS, on-prem, hybrid, dedicated tenant?
+  deployment_type: "[SaaS (multi-tenant) / SaaS (dedicated tenant) / On-premise / Hybrid]"
+  
+  # GUIDANCE: What isolation boundaries exist?
+  tenant_boundary: "[Description of tenant isolation, e.g., 'Organization workspace with SSO enforcement', 'Dedicated VPC']"
+  
+  # GUIDANCE: What AI model(s) underlie this service?
+  underlying_models:
+    - name: "[Model name, e.g., 'GPT-5', 'Claude Sonnet 4']"
+      reference: "[Path/URL to model card]"
+      version: "[Model version if specified by vendor]"
+
+  # GUIDANCE: Note if service provides access to multiple models
+  notes: "[Any additional context about service scope]"
+
+# =============================================================================
+# INTENDED USE (ORGANIZATIONAL)
+# =============================================================================
+# GUIDANCE: Define how YOUR organization intends to use this service.
+# This is different from vendor's intended use - this is YOUR approved scope.
+
+intended_use:
+  summary: |
+    [Brief description of organizational use case for this service.
+    Example: "Use of ChatGPT Business for non-sensitive documentation drafting,
+    template generation, and technical writing assistance within governance projects."]
+
+  # GUIDANCE: What use cases are explicitly approved?
+  in_scope:
+    - "[Approved use case 1]"
+    - "[Approved use case 2]"
+    - "[Approved use case 3]"
+
+  # GUIDANCE: What use cases are explicitly prohibited?
+  out_of_scope:
+    - "[Prohibited use case 1 - be specific]"
+    - "[Prohibited use case 2 - be specific]"
+    - "[Prohibited use case 3 - be specific]"
+
+  # GUIDANCE: Note any scope evolution plans or review triggers
+  notes: "[Any context about scope decisions or planned expansions]"
+
+# =============================================================================
+# SERVICE CONFIGURATION
+# =============================================================================
+# GUIDANCE: Document actual service configuration you've deployed.
+# This section captures your risk controls implemented via vendor features.
+
+service_configuration:
+  # GUIDANCE: Access control features
+  access_controls:
+    # GUIDANCE: Is SSO enforced?
+    sso: true  # true/false
+    
+    # GUIDANCE: Is MFA required?
+    mfa: "[enforced / optional / not available]"
+    
+    # GUIDANCE: Can you implement role-based access?
+    role_separation: true  # true/false
+    
+    # GUIDANCE: Other access controls
+    additional_controls: "[List any other access features, e.g., IP allowlisting, device management]"
+
+  # GUIDANCE: Feature toggles that affect risk profile
+  features_tools:
+    # GUIDANCE: Web browsing capability
+    browsing:
+      status: "[enabled / disabled / not available]"
+      rationale: "[Why enabled or disabled - tie to risk assessment]"
+      constraints: "[Any limitations if enabled, e.g., 'Internal domains only']"
+
+    # GUIDANCE: Code execution capability
+    code_interpreter:
+      status: "[enabled / disabled / not available]"
+      rationale: "[Why enabled or disabled]"
+      constraints: "[Any limitations if enabled]"
+
+    # GUIDANCE: File upload capability
+    file_uploads:
+      status: "[enabled / disabled / limited / not available]"
+      rationale: "[Why this configuration]"
+      constraints:
+        - "[Constraint 1, e.g., 'No sensitive data']"
+        - "[Constraint 2, e.g., 'Non-executable files only']"
+
+    # GUIDANCE: Third-party integrations
+    third_party_integrations:
+      status: "[enabled / disabled / limited / not available]"
+      enabled_integrations: "[List if any, e.g., 'Slack', 'Google Drive']"
+      rationale: "[Why this configuration]"
+
+    # GUIDANCE: Custom GPTs / workspace customization
+    custom_gpts:
+      status: "[enabled / disabled / not available]"
+      approval_required: true  # true/false
+      rationale: "[Governance approach for custom models]"
+
+    # GUIDANCE: Other notable features
+    additional_features:
+      - name: "[Feature name]"
+        status: "[enabled/disabled]"
+        rationale: "[Why]"
+
+  # GUIDANCE: How configuration changes are managed
+  change_management:
+    # GUIDANCE: Are vendor changes monitored?
+    vendor_change_trigger: true  # true/false
+    
+    # GUIDANCE: Internal review process for changes
+    internal_review_on_change: true  # true/false
+    
+    # GUIDANCE: Describe change process
+    process: "[How configuration changes are proposed, reviewed, and approved. Example: 'PR with signed commits linked to ADR; board sign-off required']"
+
+# =============================================================================
+# DATA HANDLING & SECURITY
+# =============================================================================
+# GUIDANCE: Document vendor commitments AND organizational controls.
+# Separate what vendor provides vs what you enforce.
+
+data_handling_and_security:
+  # GUIDANCE: What does vendor commit to?
+  vendor_commitments:
+    # GUIDANCE: Does vendor train on your data?
+    no_training_on_org_data: true  # true/false
+    
+    # GUIDANCE: What certifications does vendor hold?
+    certifications:
+      - "[Cert 1, e.g., 'SOC 2 Type II']"
+      - "[Cert 2, e.g., 'ISO/IEC 27001']"
+      - "[Cert 3, e.g., 'HIPAA BAA available']"
+
+    # GUIDANCE: Encryption capabilities
+    encryption_in_transit: true  # true/false
+    encryption_at_rest: true  # true/false
+    
+    # GUIDANCE: Data residency if relevant
+    data_residency: "[Geographic constraints if applicable, e.g., 'US-only', 'EU-only', 'Customer choice']"
+    
+    # GUIDANCE: Other vendor commitments
+    additional_commitments: "[Any other relevant vendor promises, e.g., 'No cross-tenant data access', 'Audit logs retained 1 year']"
+
+  # GUIDANCE: What controls does YOUR organization enforce?
+  organizational_controls:
+    # GUIDANCE: Data minimization approach
+    data_minimization: "[Policy for what data can be used, e.g., 'Non-sensitive content only', 'Public data only']"
+    
+    # GUIDANCE: Data retention policy
+    retention_policy: "[How long data is kept, e.g., 'TBD', '90 days', 'Indefinite with quarterly review']"
+    
+    # GUIDANCE: What audit evidence do you collect?
+    audit_evidence:
+      - "[Evidence type 1, e.g., 'Signed Git commits for policy changes']"
+      - "[Evidence type 2, e.g., 'Service access logs reviewed quarterly']"
+      - "[Evidence type 3, e.g., 'Use case documentation in worklogs']"
+
+    # GUIDANCE: Additional organizational controls
+    additional_controls: "[Any other controls you've implemented]"
+
+  # GUIDANCE: What data is absolutely prohibited?
+  prohibited_data_classes:
+    - "[Class 1, e.g., 'PII/PHI']"
+    - "[Class 2, e.g., 'Customer data']"
+    - "[Class 3, e.g., 'Credentials, secrets, keys']"
+    - "[Class 4, e.g., 'CUI/ITAR/EAR']"
+    - "[Class 5, e.g., 'Financial account information']"
+
+# =============================================================================
+# GOVERNANCE & ACCOUNTABILITY
+# =============================================================================
+# GUIDANCE: How is this service governed within your organization?
+
+governance_and_accountability:
+  # GUIDANCE: RACI model (can reference top-level owners)
+  authority_model:
+    responsible: "[Who executes]"
+    governing: "[Who approves]"
+    accountable: "[Who owns]"
+
+  # GUIDANCE: What requires approval?
+  approvals:
+    required_for:
+      - "[Decision type 1, e.g., 'Changes to feature defaults']"
+      - "[Decision type 2, e.g., 'Scope expansion']"
+      - "[Decision type 3, e.g., 'Budget increases']"
+
+  # GUIDANCE: Link to governance documentation
+  documentation_links:
+    adr:
+      - "[Path to ADR for adoption]"
+      - "[Path to ADR for configuration decisions]"
+    
+    worklogs:
+      - "[Path to evaluation worklog]"
+      - "[Path to ongoing operational logs]"
+    
+    policies:
+      - "[Path to relevant policies]"
+
+  # GUIDANCE: Review process
+  review:
+    cadence: "[Regular review frequency]"
+    
+    # GUIDANCE: What triggers early review?
+    early_review_triggers:
+      - "[Trigger 1, e.g., 'Material vendor service change']"
+      - "[Trigger 2, e.g., 'Security incident']"
+      - "[Trigger 3, e.g., 'Scope expansion request']"
+      - "[Trigger 4, e.g., 'Audit finding']"
+
+# =============================================================================
+# VENDOR SERVICE EVALUATION
+# =============================================================================
+# GUIDANCE: Document your evaluation of the vendor service.
+# This is where you assess whether service meets your requirements.
+
+vendor_service_evaluation:
+  # GUIDANCE: Key evaluation criteria and results
+  evaluation_criteria:
+    # GUIDANCE: Does service meet compliance requirements?
+    compliance_requirements:
+      - requirement: "[Requirement 1, e.g., 'SOC 2 Type II']"
+        met: true  # true/false
+        evidence: "[How verified]"
+      
+      - requirement: "[Requirement 2, e.g., 'SSO support']"
+        met: true  # true/false
+        evidence: "[How verified]"
+
+    # GUIDANCE: Does service meet technical requirements?
+    technical_requirements:
+      - requirement: "[Requirement 1, e.g., 'Real-time response']"
+        met: true  # true/false
+        notes: "[Assessment notes]"
+      
+      - requirement: "[Requirement 2, e.g., 'API access']"
+        met: false  # true/false
+        notes: "[Why not met, impact]"
+
+    # GUIDANCE: Does service meet cost requirements?
+    cost_requirements:
+      pricing_model: "[Per-seat / usage-based / enterprise / other]"
+      cost_per_unit: "[Cost, e.g., '$25/user/month']"
+      budget_fit: "[Assessment of cost acceptability]"
+
+  # GUIDANCE: Decision rationale
+  decision:
+    outcome: "[approved / approved-with-conditions / rejected / deferred]"
+    rationale: |
+      [Why you made this decision. What factors were decisive?
+      What alternatives were considered? What conditions apply if conditional approval?]
+
+# =============================================================================
+# NIST AI RMF ALIGNMENT
+# =============================================================================
+# GUIDANCE: How does this service card address RMF functions?
+
+rmf_alignment:
+  # GUIDANCE: Which RMF functions does this card currently cover?
+  coverage: ["GOVERN", "MAP", "MEASURE", "MANAGE"]  # List applicable
+
+  # GUIDANCE: Explain RMF coverage approach
+  notes: |
+    [Describe how this card addresses each RMF function.
+    Example: "At Phase 0.2, this card covers GOVERN (roles, boundaries, config).
+    MAP/MEASURE/MANAGE will be added in Phase 1.0 when operational data exists."]
+
+  # GUIDANCE: RMF function-specific notes if needed
+  govern_notes: "[GOVERN-specific details if needed]"
+  map_notes: "[MAP-specific details if needed]"
+  measure_notes: "[MEASURE-specific details if needed]"
+  manage_notes: "[MANAGE-specific details if needed]"
+
+# =============================================================================
+# RISK ASSESSMENT
+# =============================================================================
+# GUIDANCE: Service-specific risk assessment (can reference underlying model risks)
+
+risk_assessment:
+  # GUIDANCE: Risks specific to service deployment
+  service_risks:
+    - risk: "[Risk 1, e.g., 'Vendor service outage affects operations']"
+      likelihood: "[Low / Medium / High]"
+      impact: "[Low / Medium / High]"
+      mitigation: "[How you're mitigating this risk]"
+    
+    - risk: "[Risk 2, e.g., 'Configuration drift from approved state']"
+      likelihood: "[Low / Medium / High]"
+      impact: "[Low / Medium / High]"
+      mitigation: "[How you're mitigating this risk]"
+
+  # GUIDANCE: Reference model risks from underlying model card
+  model_risks_reference: "[Reference to model card section, e.g., 'See ./vendor-model-card.yaml trustworthiness_assessment for underlying model risks']"
+
+  # GUIDANCE: Residual risks after controls
+  residual_risks: |
+    [What risks remain after all controls are applied?
+    What is your risk acceptance position?]
+
+# =============================================================================
+# OPERATIONAL CONSIDERATIONS
+# =============================================================================
+# GUIDANCE: Day-to-day operational aspects of service usage
+
+operational_considerations:
+  # GUIDANCE: User onboarding and training
+  user_management:
+    onboarding_process: "[How users get access]"
+    training_required: true  # true/false
+    training_materials: "[Where training materials live]"
+
+  # GUIDANCE: Support and incident response
+  support:
+    vendor_support: "[Vendor support tier and availability]"
+    internal_support: "[Internal support contact or process]"
+    incident_response: "[How incidents are handled]"
+
+  # GUIDANCE: Monitoring and compliance
+  monitoring:
+    usage_monitoring: "[How usage is tracked]"
+    compliance_monitoring: "[How compliance is verified]"
+    audit_frequency: "[How often audited]"
+
+  # GUIDANCE: Dependencies and integration
+  dependencies:
+    - "[Dependency 1, e.g., 'SSO provider availability']"
+    - "[Dependency 2, e.g., 'Network connectivity']"
+    - "[Dependency 3, e.g., 'Budget approval for seats']"
+
+# =============================================================================
+# DISCLOSURES & LIMITATIONS
+# =============================================================================
+# GUIDANCE: Be explicit about what this card covers and doesn't cover
+
+disclosures:
+  # GUIDANCE: Limitations of this card
+  limitations:
+    - "[Limitation 1, e.g., 'Focuses on service context; model internals in separate card']"
+    - "[Limitation 2, e.g., 'Phase 0.2 - operational metrics not yet collected']"
+    - "[Limitation 3, e.g., 'Vendor may change service features without notice']"
+
+  # GUIDANCE: Assumptions made in this card
+  assumptions:
+    - "[Assumption 1, e.g., 'Service features remain within approved configuration']"
+    - "[Assumption 2, e.g., 'Vendor compliance certifications remain current']"
+    - "[Assumption 3, e.g., 'User training completed before access granted']"
+
+  # GUIDANCE: Dependencies on external factors
+  dependencies:
+    - "[Dependency 1, e.g., 'Continued availability of vendor service']"
+    - "[Dependency 2, e.g., 'Underlying model card accuracy']"
+    - "[Dependency 3, e.g., 'Vendor terms of service']"
+
+# =============================================================================
+# CHANGE LOG
+# =============================================================================
+# GUIDANCE: Track evolution of this service card over time
+
+change_log:
+  - version: "[X.Y.Z]"
+    date: "[YYYY-MM-DD or null]"
+    author: "[Author name]"
+    summary: "[What changed and why]"
+
+# =============================================================================
+# TEMPLATE USAGE NOTES
+# =============================================================================
+# WHY USE SERVICE CARDS VS MODEL CARDS:
+#
+# Use SERVICE CARD when:
+# - Evaluating vendor-managed AI services (ChatGPT Business, Claude Enterprise, etc.)
+# - Service configuration materially affects risk profile
+# - Vendor provides compliance guarantees at service tier
+# - You need change control for service configuration
+# - Multi-tenancy, SSO, feature toggles are governance-relevant
+#
+# Use MODEL CARD when:
+# - Evaluating the AI model itself (capabilities, training, limitations)
+# - Direct API access or self-hosted deployment
+# - Technical assessment independent of service wrapper
+#
+# HYBRID APPROACH:
+# - Create MODEL CARD for underlying AI model technical assessment
+# - Create SERVICE CARD for service-specific governance (this template)
+# - Reference model card from service card, don't duplicate
+# - Service card focuses on: configuration, compliance, controls, change management
+# - Model card focuses on: capabilities, training, trustworthiness, evaluation
+#
+# PHASED IMPLEMENTATION:
+# You don't need to complete all sections immediately. Consider phased approach:
+# - Phase 0.1-0.2: GOVERN (roles, scope, configuration, approval process)
+# - Phase 0.3-0.5: MAP (risk assessment, context documentation)
+# - Phase 0.6-0.8: MEASURE (metrics, monitoring, audit evidence)
+# - Phase 0.9-1.0: MANAGE (incident response, continuous improvement)
+#
+# Mark sections as "TBD in Phase X.Y" rather than leaving incomplete.
