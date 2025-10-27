@@ -1,598 +1,317 @@
 # 🧭 NIST AI RMF Cookbook
 
-Real-world AI governance from a team figuring it out. Your implementation will look different—that's the point.
+Operational AI governance for small teams producing work with downstream impact.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-orange.svg)]()
-[![Status](https://img.shields.io/badge/status-in--use-green.svg)]()
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17332823.svg)](https://doi.org/10.5281/zenodo.17332823)
+[![Version](https://img.shields.io/badge/version-0.2.0-orange.svg)]()
+[![Status](https://img.shields.io/badge/status-active--development-green.svg)]()
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.PENDING.svg)](https://doi.org/10.5281/zenodo.PENDING)
 
-> Project Status: v0.1 - Operational (Q4 2025)  
-> We formalized AI governance for our own research cluster and documented the process. We had to do this work anyway—we're sharing it because we believe in open science. The learning might be bidirectional.
+> Project Status: v0.2 - Active Development (Q4 2025)  
+> Operational AI governance system for a six-person citizen science team producing enhanced research datasets. We operationalized the same rigor we apply to data quality into AI governance—not because regulations require it, but because quality outputs require quality process.
 
 ---
 
 ## 📖 What This Is
 
-If you're using AI tools productively but managing them informally—making decisions about which models to use, handling sensitive data, navigating costs—you're probably where we were a few months ago.
+This repository contains operational AI governance artifacts from RadioAstronomy.io—a collaboration between IT professionals and citizen scientists managing on-premises infrastructure for astronomy research. We produce datasets that are being downloaded, cited, and used by other researchers. When your outputs have downstream impact, operational responsibility follows.
 
-We run a research cluster that uses AI extensively. Local models, commercial APIs, public and sensitive data. We realized we had no formal governance framework—just ad-hoc decisions and unwritten policies. The NIST AI Risk Management Framework existed, but it's deliberately abstract. It tells you *what* to think about and *why* it matters, but the *how* is up to you.
+You get our complete governance system: policies, standards, risk scenarios, and 130+ model cards. Version-controlled, peer-reviewed, board-approved documentation mapping NIST AI RMF, CIS Controls, CIS-RAM, and Colorado SB-24-205 into operational practice. These aren't aspirational frameworks—this is what we actually use to run a six-person AI-native team.
 
-So we did what we had to do anyway: we formalized our own governance. But instead of keeping it internal, we're documenting the entire process publicly. Not because we think we've cracked the code, but because we believe the learning might be bidirectional—you might learn from our implementation, and we'll definitely learn from your feedback.
+We share this because open science means transparency about both the data and the operational practices ensuring its quality. Read our [mission statement](mission-statement.md) for the full story on why downstream responsibility drove us to formalize governance and share it publicly.
 
-> 📘 New to NIST AI RMF? No prior knowledge required. This repository documents practical implementation, not framework theory. For foundational understanding, see the [NIST AI RMF Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook) [2]. We translate frameworks into working systems—you can learn as you go.
-
-### Our Approach
-
-1. Gap analysis - Figure out what we're actually doing (and what we're not)
-2. Write policies - Only what we need right now, nothing theoretical
-3. Test them - Use them in our actual cluster with real workflows
-4. Backport to templates - Extract the patterns once we know they work
-5. Share everything - Publish the whole journey, warts and all
-
-This is v0.1—the formalization phase. We're taking informal practices and making them explicit. The next version will show how these frameworks guide actual decisions, like evaluating Microsoft Business GPT for our environment.
+[Learn more about the astronomy lab →](https://github.com/Proxmox-Astronomy-Lab/proxmox-astronomy-lab)
 
 ---
 
-## ⚙️ The Framework Adapts to You (Not the Other Way Around)
+## ✨ Key Features
 
-Here's something important about the NIST AI RMF: it's intentionally abstract. It's a risk management process, not a compliance checklist. That's actually its strength—it adapts to your context instead of forcing you into a one-size-fits-all model.
+130+ Model Cards - NIST-aligned assessments covering major AI systems from 15+ vendors (Anthropic, Google, Meta, Microsoft, Mistral, OpenAI, and emerging providers). Each card maps capabilities, risks, and controls to NIST AI RMF trustworthiness characteristics.
+
+Policy Stack - Four integrated frameworks operationalized: AI Governance Policy, Risk Assessment Standard, Secure AI Systems Standard, and Transparency & Disclosure Standard. Board-approved and enforced through Google Workspace Enterprise.
+
+Operational Risk Library - R01-R10+ risk scenarios documenting AI-specific threats (data exposure, credential leakage, prompt injection, infrastructure drift, supply chain vulnerabilities) with controls mapped to CIS Controls IG1 baseline.
+
+Adaptable Templates - Reusable patterns extracted from operational documentation. Model card templates, policy structures, risk assessment frameworks, and impact assessment guides ready for your context.
+
+Framework Integration - Proven approach combining NIST AI RMF (structure), CIS-RAM (methodology), CIS Controls v8.1 IG1 (technical baseline), and Colorado SB-24-205 (regulatory language) into comprehensive governance achievable at small-team scale.
+
+[Browse model card collection →](./model-cards/)  
+[See example policy →](./policies-proxmox-cluster/01-ai-governance-policy.md)  
+[Review risk scenarios →](./policies-proxmox-cluster/risk-scenarios/)
+
+---
+
+## 🚀 Quick Start
+
+New to AI governance or evaluating this repository?
+
+1. Assess relevance: Read [`policies-proxmox-cluster/risk-scenarios/`](./policies-proxmox-cluster/risk-scenarios/) - If 3+ scenarios apply to your operations, systematic governance would benefit you
+2. Understand approach: Review [`docs/framework-decision-rationale.md`](./docs/framework-decision-rationale.md) - Why we chose these frameworks over alternatives
+3. See it in action: Examine [`policies-proxmox-cluster/01-ai-governance-policy.md`](./policies-proxmox-cluster/01-ai-governance-policy.md) - Our operational governance structure
+4. Explore resources: Browse [`model-cards/`](./model-cards/) for vendor assessments you might need
+5. Adapt to your context: Use templates in `*-templates/` directories to build your own governance artifacts
+
+Comprehensive navigation guide: [`docs/getting-started.md`](./docs/getting-started.md)
+
+---
+
+## 🗂️ Repository Structure
+
+```markdown
+nist-ai-rmf-cookbook/
+├── policies-proxmox-cluster/      # Our operational implementation
+│   ├── 01-ai-governance-policy.md
+│   ├── standards/                 # Risk assessment, security, transparency
+│   ├── risk-scenarios/            # R01-R10 operational risk library
+│   ├── model-cards/               # Deployment-specific documentation
+│   └── appendices/                # Framework crosswalk, decision logs
+│
+├── model-cards/                   # 130+ vendor model assessments
+├── *-templates/                   # Reusable templates for your implementation
+│   ├── policy-templates/
+│   ├── model-cards-templates/
+│   ├── risk-scenario-templates/
+│   └── appendices-templates/
+│
+├── docs/                          # Documentation and guides
+│   ├── getting-started.md
+│   ├── framework-decision-rationale.md
+│   └── article-templates/
+│
+└── schemas/                       # YAML validation schemas
+```
+
+Each directory contains its own README with detailed navigation. See [`docs/getting-started.md`](./docs/getting-started.md) for comprehensive structure explanation and navigation by intent.
+
+---
+
+## 🛠️ The Story: v0.1 → v0.2
+
+### v0.1: The Ad-Hoc Phase (Q3 2025)
+
+Where we started:
+
+- Azure infrastructure with expensive licensing
+- AI tools scattered across personal accounts
+- "GPT Business solves everything" (narrator: it didn't)
+- Informal practices without documentation
+- No framework alignment or risk assessment
+
+We were using AI productively, but managing it through tribal knowledge and good intentions. It worked until it didn't scale.
+
+### Team Evolution
+
+Six-person team with diverse backgrounds:
+
+- CTO/Repository Owner (also engineer)
+- System engineers with high-compliance environment experience
+- Networking engineer
+- Senior support desk role
+- Security advisor
+
+This mix brought both technical capability and compliance awareness from regulated industries, but the question remained: could we achieve enterprise-grade governance at small-team scale without enterprise budgets?
+
+### v0.2: Operational Governance (Q4 2025)
+
+Infrastructure transformation:
+
+- Google Workspace Enterprise as the work fabric
+- Gemini integrated everywhere (Docs, Sheets, Gmail, Meet, Drive)
+- Gemini CLI running automation (120 req/min, enterprise identity, audit logs)
+- NetBird zero-trust mesh (no exposed services)
+- Kasm isolated workspaces for protected data
+
+Governance formalization:
+
+- AI Review Board established (entire team rotates the ARO role)
+- Policies drafted, reviewed, board-approved
+- Risk assessment process operationalized
+- 130+ model cards documenting vendor landscape
+- Technical controls mapped to CIS Controls v8.1 IG1 baseline
+
+Framework integration:
+We chose frameworks based on practical operational needs:
+
+- NIST AI RMF 1.0 - Governance structure and trustworthiness framework
+- CIS-RAM - Repeatable risk assessment methodology
+- CIS Controls v8.1 IG1 - Technical baseline (56 controls for small teams)
+- Colorado SB-24-205 - Concrete regulatory language and requirements
+
+Result: Comprehensive governance system running on commodity infrastructure ($250/month tool costs, open-source where possible) with enterprise-grade rigor. This is what operational AI governance looks like at small-team scale—not scaled-down enterprise programs or aspirational frameworks, but actual practice.
+
+---
+
+## ⚙️ Framework Integration
+
+NIST AI RMF is descriptive, not prescriptive. It defines what to consider (risks, trustworthiness, stakeholders) and why it matters (safety, accountability, transparency). The implementation details are yours to determine based on your context.
+
+### The Four Frameworks Work Together
+
+NIST AI RMF 1.0 provides governance structure through four core functions (Govern, Map, Measure, Manage) and establishes trustworthiness characteristics for AI systems.
+
+CIS-RAM operationalizes NIST's functions into repeatable assessment methodology: Identify, Assess, Prioritize, Respond, Monitor. It's the "how" that makes NIST's "what" actionable.
+
+CIS Controls v8.1 IG1 delivers technical baseline—56 specific controls achievable by small teams without dedicated security staff. Basic cyber hygiene mapped to AI trustworthiness principles.
+
+Colorado SB-24-205 adds regulatory concreteness—operational definitions of "high-risk AI systems," impact assessment requirements, disclosure obligations, and consumer rights. We voluntarily adopted it to demonstrate proactive governance and access concrete regulatory language.
+
+Together: Governance structure + risk methodology + technical controls + regulatory alignment = comprehensive system achievable with realistic resources.
+
+Deep dive: [`docs/framework-decision-rationale.md`](./docs/framework-decision-rationale.md) explains our selection process, what we rejected (ISO 42001, SOC 2, FedRAMP), and why these specific frameworks satisfy our operational needs.
 
 ### What Changes vs. What Stays Constant
 
-Every AI system is different. Different models, different data, different risks, different resources. The NIST AI RMF's four functions (Govern, Map, Measure, Manage) stay constant—they're the process. How you execute them is yours to determine.
-
 | Changes Based on Your Context | Stays Constant (The Framework) |
-|-----------------------------------|-----------------------------------|
-| Your specific risks and threats | The evidence types you need to generate |
-| Your tools and infrastructure | The four core functions (Govern, Map, Measure, Manage) |
-| Your budget and resource constraints | The risk management process and methods |
-| Your regulatory environment | The systematic approach to AI governance |
+|-------------------------------|-------------------------------|
+| Your specific risks and threats | The evidence types you need |
+| Your tools and infrastructure | Four core functions (Govern, Map, Measure, Manage) |
+| Your budget and resource constraints | Risk management process and methods |
+| Your regulatory environment | Systematic approach to AI governance |
 
-Our implementation is opinionated—it reflects our specific environment (Proxmox cluster, local LLMs, hybrid cloud, astronomy research).
+Our implementation is opinionated—six-person team, Google Workspace, astronomy research, public datasets, zero-trust enclave.
 
-Our templates are generic—they extract the reusable patterns that should work regardless of your stack.
+Our templates are adaptable—extracted patterns that work regardless of your stack.
 
-When your implementation looks different from ours, that's not a bug—that's the framework working as intended. The RMF adapts to you.
+When your implementation looks different from ours, that's not a bug—that's the framework working as intended. Your risk assessment depth should match your downstream impact and organizational risk tolerance.
 
 ---
 
-## 📦 What You Get in v0.1
+## 📦 What v0.2 Contains
 
-We're sharing two things: our actual governance artifacts (opinionated, specific to us) and the templates we extracted from them (generic, adaptable to you).
+### Operational Policies (`/policies-proxmox-cluster/`)
 
-### Real Policies (Our Implementation)
+Complete governance suite for our infrastructure:
 
-`_repository-governance/` - What we actually use in our cluster:
+- AI Governance Policy - Foundational structure, Review Board charter, risk tolerance framework, NIST RMF adoption
+- AI Risk Assessment & Management Standard - NIST Map + CIS-RAM evaluation + CIS Controls mitigation (systematic 4-8 hour assessment per system)
+- Secure AI Systems Standard - CIS Controls IG1 baseline (56 safeguards), zero-trust architecture, agent governance, acceptable use
+- AI Transparency & Disclosure Standard - Impact assessments, model cards, consumer rights, incident disclosure procedures
+- Framework Crosswalk - Integration mapping across NIST/CIS-RAM/CIS Controls/Colorado SB-24-205
 
-- ✅ AI Acceptable Use Policy - How contributors use AI tools, which platforms are approved, what data can go where
-- ✅ Model Selection Strategy - Our four-tier architecture ($140/month with documented cost/risk/capability trade-offs)
-- ✅ Model Cards - Claude Sonnet 4.5, GPT-5, Gemini Pro 2.5, Llama 3.1 8B fully documented
-- ✅ Multi-Model Consensus Process - How we ensure quality for critical artifacts
-- ✅ Cost Transparency - ROI analysis showing 175 hours/year saved for $140/month spend
+Supporting documentation:
 
-This is opinionated—it works for our use case. Your cluster will have different constraints, different tools, different risks. That's expected.
+- Decision log documenting framework selection rationale
+- Implementation guides showing how frameworks work together operationally
+- Role-based AI stack defining which models for what purposes
 
-### Generic Templates (Extracted Patterns)
+### Model Cards (`/model-cards/`)
 
-`policies/` - Adaptable policy templates:
+130+ cards covering the vendor landscape:
 
-- ✅ AI Acceptable Use Policy Template - Customizable for any organization, includes educational guidance on when/how to adapt each section
-- 📜 Additional policies as we write them (we only create what we actually need)
+Major Providers:
 
-`schemas/` - YAML schemas for structured documentation:
+- Anthropic Claude family (Opus, Sonnet, Haiku across versions)
+- Google Gemini (1.0, 1.5, 2.5 across Pro/Flash/Nano)
+- Meta Llama (3, 3.1, 4 variants)
+- Microsoft Phi (3, 4 reasoning and multimodal)
+- Mistral/Mixtral family
+- OpenAI GPT (4, 5, o1/o3 reasoning models)
 
-- ✅ Model Card Schema - Document any AI model's properties, limitations, intended use
-- ✅ Data Card Schema - Track dataset provenance, preprocessing, demographic analysis
-- ✅ Risk Assessment Schema - Identify and document AI-specific risks
-- ✅ Control Mapping Schema - Link risks to mitigations, controls, and evidence artifacts
-- ✅ Evaluation Plan Schema - Define metrics, testing methodologies, acceptance criteria
+Emerging Providers:
 
-`docs/crosswalks.md` - Framework alignment tables:
+- DeepSeek, Qwen, Yi, Falcon, and others
 
-- ✅ NIST AI RMF ↔ ISO/IEC 42001 (AI Management System standard)
-- ✅ NIST AI RMF ↔ ISO/IEC 23894 (Risk management process)
-- ✅ NIST AI RMF ↔ NIST SP 800-53 Rev. 5 (Security controls)
-- ✅ NIST AI RMF ↔ EU AI Act (High-risk system obligations)
+Each card maps to NIST trustworthiness characteristics (valid/reliable, safe, secure/resilient, accountable/transparent, explainable/interpretable, privacy-enhanced, fair with bias managed) and provides risk categorization for RMF functions.
 
-These crosswalks show how the same governance work can satisfy multiple framework requirements simultaneously—useful if you're trying to check several compliance boxes at once.
+### Templates (`/*-templates/`)
+
+Reusable patterns extracted from operational documentation:
+
+- Model card templates with YAML schema validation
+- Policy structure templates with inline guidance
+- Risk scenario documentation patterns (CIS-RAM methodology)
+- Impact assessment templates (AISIA format)
+- Appendix templates (crosswalks, glossaries, decision logs)
+
+### Schemas (`/schemas/`)
+
+YAML schemas for structure enforcement and validation across all documentation types. Enables automated quality checks and consistency verification.
 
 ### What's NOT Here Yet
 
-Let's be realistic about scope. This is v0.1:
+Realistic scope acknowledgment for v0.2:
 
-- ❌ Worked examples - Generic examples like RAG assistants or classifiers are planned but not present yet
-- ❌ Automation tools - YAML validation, OSCAL export, CI/CD workflows are future work
-- ❌ Complete policy library - We write policies as we need them, not speculatively
-- ❌ GRC tool integration - Adapters for GovReady-Q, OpenGRC planned for later phases
+- ❌ Universal governance solution - Our implementation reflects our specific context; yours will differ
+- ❌ Complete risk scenario library - We build as we encounter scenarios, not speculatively
+- ❌ Full automation tooling - YAML validation works; CI/CD workflows and GRC integration planned for future releases
+- ❌ Extended implementation guides - Focusing on core operational needs first; detailed guides as community needs emerge
+- ❌ Certification audit support - This demonstrates governance maturity but doesn't replace professional audit preparation
 
-There's a comprehensive blueprint document (`docs/nist-ai-rmf-cookbook-blueprint.pdf`) that lays out the long-term vision—automation, integration, expanded examples. But v0.1 delivers the operational core. We're building what we need when we need it, then generalizing for others.
-
----
-
-## 🛠️ How We Got Here
-
-### Pre-v0.1: The Ad-Hoc Phase
-
-Where we were in September 2025:
-
-- Using four AI platforms ($140/month total) with no documented selection rationale
-- Making model choices based on anecdotal evidence ("Claude writes better docs")
-- Processing repository content through AI tools with no formal data classification
-- No risk assessment for prompt injection, data leakage, or model limitations
-- Zero connection to any governance framework
-
-Sound familiar? We were using AI productively but managing it informally. It worked... until we realized we couldn't answer basic questions like "why did we choose these tools?" or "what data can we put where?"
-
-### The Gap Analysis
-
-Before we could formalize anything, we needed to understand what we were actually doing:
-
-1. Inventoried all AI tools - Which platforms, what they cost, who used them
-2. Mapped usage patterns - What tasks used which models, and why
-3. Identified implicit policies - Rules we were following but hadn't written down
-4. Recognized risks we were managing - Informally handling sensitive data, avoiding certain use cases
-5. Discovered multi-framework needs - Different stakeholders care about different standards
-
-The full gap analysis will be in `docs/gap-analysis.md` before final v0.1 release—it's useful as a template if you're doing your own assessment.
-
-### Framework Application
-
-We chose the NIST AI RMF as our primary scaffold for three reasons:
-
-1. Flexible - It's a risk management process, not a prescriptive checklist
-2. Comprehensive - Four functions (Govern, Map, Measure, Manage) cover the full lifecycle
-3. Voluntary - Allows tailoring to actual needs instead of forcing compliance theater
-
-Then we crosswalked to complementary frameworks because different stakeholders care about different standards:
-
-- ISO/IEC 42001 - Management system structure for organizational governance
-- ISO/IEC 23894 - Detailed risk management process guidance
-- NIST SP 800-53 - Security control mappings for technical implementations
-- EU AI Act - High-risk system obligations for regulatory context
-
-### What v0.1 Formalizes
-
-Here's how our actual artifacts map to the AI RMF functions (as defined in NIST AI 100-1 § 2):
-
-GOVERN Function:
-
-- Repository AI Acceptable Use Policy establishes oversight and approved platforms
-- Model Selection Strategy documents risk tolerance and architectural decisions
-- Roles and responsibilities defined (repository maintainer, contributors, AI Governance Committee)
-
-MAP Function:
-
-- Model cards identify capabilities, limitations, and known biases for each tool
-- Risk identification for each tier (Tier 0 local privacy, Tier 1-3 commercial platforms)
-- Data classification approach (public repository content, draft work, proprietary)
-
-MEASURE Function:
-
-- Multi-model consensus methodology defines quality metrics
-- Quarterly review triggers ensure continuous evaluation
-- Cost/benefit analysis tracks ROI (175 hours/year saved for $140/month spend)
-
-MANAGE Function:
-
-- Four-tier architecture implements risk-based tool selection
-- Model exit interview template for deprecating tools systematically
-- Evidence artifacts (model cards, policy acknowledgments, methodology docs)
-
-This isn't theoretical compliance—it's our actual operational system.
+We build what we need when we need it, then extract patterns for sharing. No speculative development.
 
 ---
 
-## 🗓️ Where This Goes Next
+## 🎯 Who This Serves
 
-### Change Log
+Small teams producing impactful work - If your outputs matter (datasets being cited, models being deployed, research influencing others), you have downstream responsibility. This shows governance is achievable at your scale.
 
-| Version | Date | Milestone | Key Changes |
-|---------|------|-----------|-------------|
-| 0.1.0 | 2025-10-10 | Formalization | Repository governance operational, templates extracted, gap analysis documented |
+AI-native organizations - When AI is woven into everything you do, informal management doesn't scale. This provides systematic process you can actually implement without enterprise resources.
 
-### v0.2/0.3 Preview: Framework-Guided Decision Making
+Teams navigating US regulatory complexity - Fragmented state laws, pending federal legislation, theoretical frameworks that don't operationalize. We built what works now with concrete examples and real implementation.
 
-We've informally decided Business ChatGPT might be worth exploring with its added security controls and team functions. Now we'll use our v0.1 framework to evaluate it formally in v0.2.
+Research organizations - Scientific integrity demands quality governance when AI assists research. This shows it's achievable alongside research priorities.
 
-The context:
-
-- Potential replacement for ChatGPT Plus in our Tier 1 (daily workhorse) slot
-- Connectors enable secure access to Outlook, Teams, and SharePoint
-- We run a hybrid cloud tenancy—this touches organizational data governance
-
-What we'll document:
-
-- MAP: How does Business GPT change our risk surface? (New risks: enterprise data access, expanded attack surface)
-- MEASURE: What evaluation criteria apply? (Comparative analysis vs. existing stack, ROI calculation)
-- MANAGE: What controls are needed? (Integration strategy, policy updates, evidence from pilot)
-
-Framework application in action:
-
-- Update `risks.yaml` with Business GPT-specific risks
-- Create `eval-plan.yaml` for pilot assessment
-- Modify `control-mapping.yaml` with new controls
-- Generate model card if we adopt it
-
-Honest transparency: We're learning what this evaluation looks like too. The framework gives us structure, but this will be our first documented example of using it for a major AI adoption decision.
-
-When v0.2 releases, you'll see:
-
-- Complete evaluation documentation in `examples/business-gpt-evaluation/`
-- Updated policy templates incorporating enterprise integration learnings
-- Lessons learned about framework application to real decisions (including what didn't work)
+Anyone evaluating frameworks - Our integration approach demonstrates how NIST AI RMF, CIS-RAM, CIS Controls, and regulatory requirements work together without redundant effort.
 
 ---
 
-## 🎯 How to Use This Repository
+## 🤝 Contributing
 
-### If You're Starting AI Governance
+This repository documents operational governance that evolved through team collaboration. Contributions welcome in several forms:
 
-You're probably where we were three months ago—using AI tools productively but managing them informally.
+Framework implementation feedback:
 
-Phase 1: Inventory (Week 1)
+- How did you adapt these templates to your context?
+- What worked? What didn't?
+- What's missing that would improve adaptability?
 
-1. List all AI tools your team uses and their costs
-2. Document who uses them and for what tasks  
-3. Identify what data gets processed through these tools
-4. Note any implicit policies you're already following (you probably have unwritten rules)
+Additional model cards:
 
-Phase 2: Gap Analysis (Week 2)
+- Using a vendor we haven't documented? Contribute an assessment.
+- Follow the YAML template and NIST trustworthiness mapping.
 
-1. Use our `docs/gap-analysis.md` as a template (when it's published)
-2. Identify your gaps using NIST AI RMF functions as a checklist
-3. Prioritize based on risk—regulatory obligations, sensitive data, high-impact decisions go first
+Risk scenarios:
 
-Phase 3: Formalize (Weeks 3-4)
+- Encountered AI risks we haven't documented?
+- Document scenario, controls, and monitoring metrics.
 
-1. Start with policy: Adapt `policies/ai-acceptable-use/template.md` to your organization
-2. Document your tools: Use `schemas/model-card.schema.yaml` for each AI platform
-3. Map your risks: Use `schemas/risk.schema.yaml` to identify what could go wrong
-4. Define your architecture: Use `_repository-governance/model-selection-strategy.md` as inspiration (your stack will be different)
+Framework crosswalks:
 
-Phase 4: Operationalize (Ongoing)
+- Mappings to other compliance requirements (GDPR, HIPAA, FedRAMP, ISO standards)
+- Help others satisfy multiple frameworks simultaneously.
 
-1. Enforce policy through awareness and tooling (not just documents gathering dust)
-2. Track compliance—policy acknowledgments, quarterly reviews, tool evaluations
-3. Document decisions—when you add/remove tools, use the framework to explain why
-4. Generate evidence—model cards, risk assessments, control mappings that auditors can actually use
+Implementation examples:
 
-### If You're in GRC/Compliance
+- Adapted our templates for different contexts?
+- Share your approach (anonymized if needed) to help others.
 
-Start here:
-
-- Review `_repository-governance/` to see operational governance in action (not just theory)
-- Examine `docs/crosswalks.md` for framework mappings to your existing control frameworks
-- Use `policies/ai-acceptable-use/` as a starting point for organizational policy
-
-Key value for you:
-
-- Framework-aligned policies reduce audit burden—demonstrates systematic approach, not ad-hoc decisions
-- Multi-framework crosswalks show how AI RMF complements existing programs (ISO, NIST, EU AI Act)
-- Evidence-based approach provides actual audit trail (model cards, risk assessments, control mappings)
-
-Your path:
-
-1. Assess organizational AI footprint (inventory all AI systems—you'll find more than you expect)
-2. Determine applicable frameworks (ISO 42001, EU AI Act, sector-specific regulations)
-3. Adapt templates to organizational context (risk tolerance, data classification, resource constraints)
-4. Work with engineering teams to populate schemas (model cards, data cards—this is collaborative)
-
-### If You're in ML/AI Engineering
-
-Start here:
-
-- Review `schemas/` directory for documentation structure requirements
-- Examine `_repository-governance/models/` for completed model cards (real examples, not hypothetical)
-- Read `docs/methodology.md` for multi-model consensus process
-
-Key value for you:
-
-- Clear expectations for governance documentation that integrate with development workflows
-- Structured formats (YAML) that fit engineering practices—version control, code review, CI/CD
-- Evidence artifacts tie directly to your existing processes
-
-Your path:
-
-1. Create model card for each AI system using `schemas/model-card.schema.yaml`
-2. Document training/retrieval data using `schemas/data-card.schema.yaml`
-3. Identify system-specific risks using `schemas/risk.schema.yaml`
-4. Store artifacts alongside code in version control (they're not separate compliance documents—they're part of the system)
-
-### If You're in Leadership
-
-Start here:
-
-- Read this README for strategic context
-- Review `_repository-governance/model-selection-strategy.md` to see how we make tool decisions
-- Examine the ROI analysis ($140/month spend justified with 175 hours/year saved)
-
-Key value for you:
-
-- Demonstrates AI governance is achievable without armies of consultants
-- Evidence-based decision making reduces risk of ad-hoc AI adoption
-- Multi-framework alignment prepares for current and future regulatory requirements
-
-Assessment questions:
-
-1. Risk tolerance: Are we comfortable with our current informal AI governance?
-2. Regulatory context: Which frameworks apply to our industry/geography?
-3. Resource commitment: Can we dedicate time from engineering, legal, security, GRC?
-4. Stakeholder buy-in: Do teams understand why governance matters?
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-## 📚 Framework Primer: NIST AI RMF in 5 Minutes
+## 📜 License
 
-The AI Risk Management Framework organizes AI governance into four core functions. Here's how this repository demonstrates each one operationally.
+MIT License - Use freely, adapt to your context, share improvements.
 
-### The Four Functions
-
-GOVERN - Establish organizational oversight and culture
-
-*Repository example:* AI Acceptable Use Policy, Model Selection Strategy, defined roles  
-*Questions answered:* Who owns AI risk? What are our values? What's our risk tolerance?
-
-MAP - Identify and understand risks in your context  
-
-*Repository example:* Model cards documenting limitations, risk identification per tier  
-*Questions answered:* What could go wrong? What harms might occur? Who's affected?
-
-MEASURE - Test, evaluate, and quantify AI system performance
-
-*Repository example:* Multi-model consensus methodology, quarterly reviews, ROI tracking  
-*Questions answered:* How well does it work? Is it fair? Can we prove it?
-
-MANAGE - Respond to risks and monitor continuously
-
-*Repository example:* Four-tier architecture risk mitigation, model exit interviews  
-*Questions answered:* How do we mitigate risks? Do controls work? What if something breaks?
-
-### Why Framework Alignment Matters
-
-For audits: Demonstrates systematic approach to AI risk management, not ad-hoc decisions  
-For compliance: Maps directly to ISO 42001, EU AI Act, sector-specific regulations  
-For efficiency: Avoid reinventing governance structures—leverage proven frameworks  
-For communication: Common vocabulary across engineering, legal, executive teams
-
-Multi-framework strength: This repository proves frameworks are complementary, not competing. Use NIST AI RMF as the process scaffold, ISO 42001 for management system structure, SP 800-53 for technical controls, and EU AI Act for regulatory requirements—all simultaneously.
+See [LICENSE](LICENSE) for full text.
 
 ---
 
-## 🔗 Framework Alignment in Practice
-
-This repository demonstrates operational interoperability with multiple AI governance frameworks. Organizations rarely operate under just one standard—you might need ISO 42001 for customer contracts, NIST SP 800-53 for government work, and EU AI Act for European operations.
-
-### Primary Framework: NIST AI RMF 1.0
-
-We use the AI RMF as our process scaffold because:
-
-- Voluntary and flexible - Process-oriented, not prescriptive checklist
-- Comprehensive - Lifecycle coverage from governance through risk management
-- AI-specific - Designed for unique AI challenges (bias, explainability, evolving capabilities)
-- Compatible - Works alongside existing risk management approaches
-
-Official resource: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
-
-### Multi-Framework Operational Alignment
-
-| Framework/Regulation | Alignment | How We Use It Operationally | Crosswalk |
-|---------------------|-----------|----------------------------|-----------|
-| NIST AI RMF 1.0 | Primary | Process scaffold for all governance activities | N/A (primary) |
-| ISO/IEC 42001 | High | Management system structure, roles, documentation | ✅ [docs/crosswalks.md](docs/crosswalks.md) |
-| ISO/IEC 23894 | High | Detailed risk management process, risk treatment | ✅ [docs/crosswalks.md](docs/crosswalks.md) |
-| NIST SP 800-53 Rev. 5 | Medium | Technical control mappings for security objectives | ✅ [docs/crosswalks.md](docs/crosswalks.md) |
-| EU AI Act | Medium | Regulatory requirements for high-risk systems | ✅ [docs/crosswalks.md](docs/crosswalks.md) |
-| OWASP Top 10 for LLMs | High | Technical risk identification for LLM applications | 📜 Integrated |
-
-### Real Example: Model Selection Decision
-
-When we designed our four-tier model architecture, we simultaneously satisfied multiple frameworks. This isn't theoretical compliance—it's our actual operational system:
-
-| Framework | Requirement | How Our Architecture Meets It |
-|-----------|------------|------------------------------|
-| NIST AI RMF | MAP.1.1: Context established | Model Selection Strategy documents organizational context, constraints ($140/month budget), use cases |
-| ISO 42001 | Clause 8.2: AI risk assessment | Risk stratification by tier (Tier 0 privacy, Tier 1-3 commercial platforms) |
-| NIST SP 800-53 | RA-3: Risk Assessment | Documented risk/cost/capability trade-offs with quarterly review triggers |
-| EU AI Act | Art. 9: Risk management system | Continuous risk management process (model exit interviews, review cycles) |
-
-Full crosswalk tables: [docs/crosswalks.md](docs/crosswalks.md)
-
----
-
-## 🛣️ Roadmap
-
-### ✅ Completed: Phase 1 - Formalization (v0.1)
-
-October 2025:
-
-- Repository AI governance operational (`_repository-governance/`)
-- Model cards for all tools in use (Claude, GPT, Gemini, Llama)
-- Multi-framework crosswalks (ISO 42001/23894, SP 800-53, EU AI Act)
-- Generic policy templates extracted (`policies/ai-acceptable-use/`)
-- Documentation schemas defined (model card, data card, risk, control mapping, eval plan)
-- Gap analysis documenting journey from ad-hoc to formal governance
-
-### 🎯 Next: Phase 2 - Framework-Guided Decision (v0.2/0.3)
-
-Q1 2026 Target:
-
-- Business GPT evaluation using MAP/MEASURE/MANAGE functions
-- Complete worked example: `examples/business-gpt-evaluation/`
-- Policy template updates incorporating enterprise integration learnings
-- Model card for Business GPT (if adopted)
-- Documented decision rationale regardless of outcome
-
-### 📋 Future: Phase 3 - Automation (Q2 2026)
-
-Planned:
-
-- YAML schema validation (automated testing in CI/CD)
-- OSCAL export capability (SSP, SAR, SAP, POA&M generation)
-- CI/CD integration examples (GitHub Actions workflows)
-- Evidence artifact handling patterns
-
-### 📌 Future: Phase 4 - Integration (Q2-Q3 2026)
-
-Planned:
-
-- GRC tool adapters (GovReady-Q, OpenGRC)
-- Additional worked examples (RAG assistant, classifier, vision model)
-- Risk library expansion (OWASP LLM Top 10 integration)
-- Compliance reporting templates
-
-### 🌍 Future: Phase 5 - Ecosystem (2026+)
-
-Vision:
-
-- Industry-specific adaptations (healthcare, finance, government)
-- Regulatory Technical Standards alignment (as EU AI Act RTS finalize)
-- Community-contributed policy templates and examples
-- Training materials and workshops
-
-Note: Timeline subject to operational needs and community contribution. We build what we need when we need it, then generalize for others.
-
----
-
-## 🌟 Community & Contributing
-
-### Getting Help
-
-Documentation:
-
-- [📚 Repository Governance](_repository-governance/) - How this repository governs itself
-- [📚 Methodology](docs/methodology.md) - Multi-model consensus and development process
-- [📚 Framework Crosswalks](docs/crosswalks.md) - Detailed multi-framework mappings
-- [📚 Gap Analysis](docs/gap-analysis.md) - How we got from ad-hoc to v0.1 *(to be published)*
-
-Questions & Discussion:
-
-- [💬 GitHub Discussions](https://github.com/vintagedon/nist-ai-rmf-cookbook/discussions) - Ask questions, share your use cases
-- [🐛 GitHub Issues](https://github.com/vintagedon/nist-ai-rmf-cookbook/issues) - Report bugs, request features
-
-### Contributing
-
-We need help building this. Here's where contributions have the most impact:
-
-High-value contributions:
-
-- Real-world case studies - How you applied these frameworks in your organization (even if it's different from ours)
-- Framework validation - Review crosswalk accuracy, especially if you work with ISO 42001 or EU AI Act
-- Policy templates - Additional policies as you need them (model development, vendor management, incident response)
-- Industry adaptations - Healthcare, finance, government contexts that require specialized approaches
-
-Quick contribution guide:
-
-1. [Fork the repository](https://github.com/vintagedon/nist-ai-rmf-cookbook/fork)
-2. Create a feature branch: `git checkout -b feature/new-policy-template`
-3. Make your changes following existing patterns
-4. Add educational guidance (📘 boxes in templates) where helpful
-5. Commit with clear messages: `git commit -m 'Add vendor management policy template'`
-6. Push to your fork: `git push origin feature/new-policy-template`
-7. [Open a Pull Request](https://github.com/vintagedon/nist-ai-rmf-cookbook/pulls)
-
-Contribution standards:
-
-- Policy templates must include educational 📘 boxes explaining customization
-- Schemas must follow JSON Schema Draft 07 format
-- All work must map to specific NIST AI RMF functions
-- Framework crosswalks require citation to official sources
-- Operational examples must demonstrate actual use, not hypothetical scenarios
-
-Project governance:
-
-- [Code of Conduct](CODE_OF_CONDUCT.md) - Community standards *(to be created)*
-- [Contributing Guidelines](CONTRIBUTING.md) - Detailed contribution process *(to be created)*
-- [License](LICENSE) - MIT License for maximum reusability
-
----
-
-## 📖 Related Resources
-
-### Official Standards & Frameworks
-
-- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) - The foundational framework this repository operationalizes
-- [NIST AI RMF Playbook](https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook) - NIST's suggested actions for implementing the framework
-- [ISO/IEC 42001:2023](https://www.iso.org/standard/81230.html) - International standard for AI management systems
-- [ISO/IEC 23894:2023](https://www.iso.org/standard/77304.html) - Guidance on AI risk management
-- [NIST SP 800-53 Rev. 5](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) - Security and privacy controls catalog
-- [OSCAL Documentation](https://pages.nist.gov/OSCAL/) - Open Security Controls Assessment Language
-- [EU AI Act](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) - European Union's AI regulation
-
-### AI Security & Risk Resources
-
-- [OWASP Top 10 for LLMs](https://owasp.org/www-project-top-10-for-large-language-model-applications/) - Critical security risks for LLM applications
-- [Hugging Face Model Cards](https://huggingface.co/docs/hub/model-cards) - Practical examples of model documentation
-- [Google Model Card Toolkit](https://github.com/tensorflow/model-card-toolkit) - Reference implementation for model cards
-- [Partnership on AI](https://partnershiponai.org/) - Ethical AI development guidelines
-- [AI Incident Database](https://incidentdatabase.ai/) - Real-world AI failure patterns
-
-### Complementary Projects
-
-- [GovReady-Q](https://www.govready.com/) - Open-source GRC platform with OSCAL support
-- [OpenGRC](https://opengrc.com/) - Open-source governance, risk, and compliance tool
-
----
-
-## 🙏 Acknowledgments
-
-### Framework Foundation
-
-This repository is built on foundational work from:
-
-- NIST AI Risk Management Framework Team - For creating a comprehensive, flexible governance framework
-- OSCAL Project Team - For developing machine-readable compliance standards
-- ISO/IEC JTC 1/SC 42 - For international AI governance standards development
-
-### Research & Best Practices
-
-AI risk identification and mitigation strategies informed by:
-
-- OWASP LLM Security Team - For systematizing LLM-specific threats
-- Partnership on AI - For ethical AI development guidelines
-- AI Incident Database - For real-world AI failure patterns
-
-### Contributors
+## 👥 Authors & Acknowledgments
 
 Primary Author: VintageDon ([GitHub](https://github.com/vintagedon))  
 ORCID: [0009-0008-7695-4093](https://orcid.org/0009-0008-7695-4093)
 
-AI Assistance: Claude (Anthropic), GPT-5 (OpenAI), Gemini Pro (Google), Llama 3.1 (Meta/Self-hosted)
+RadioAstronomy.io Team:  
+Six-person collaborative team including engineers, network specialist, and security advisor with backgrounds spanning high-compliance environments (Azure GCC/GCC High), commercial infrastructure, and enterprise security.
 
-Methodology: This repository was created using the multi-model consensus process documented in [docs/methodology.md](docs/methodology.md). AI tools provided drafting assistance, structural suggestions, and cross-validation. All content was human-reviewed, verified against authoritative sources, and integrated into a coherent operational system. The AI tools themselves are documented via model cards in `_repository-governance/models/`.
+AI Assistance:  
+Claude Sonnet 4.5 (Anthropic), Gemini Pro 2.5 (Google) and GLM 4.6 via Z.ai (with data restrictions)
+
+This repository was created through iterative collaboration between human expertise and AI assistance. Policies underwent peer review and board approval. Model cards were verified against vendor documentation. All content represents operational practice, not theoretical frameworks.
 
 Community Contributors: *Your name could be here—see Contributing section*
-
----
-
-## 💡 Getting Started Checklist
-
-New to the repository? Here's your path:
-
-- [ ] Read this README to understand the v0.1 journey and operational context
-- [ ] Review `docs/gap-analysis.md` to see how we got from ad-hoc to formal governance *(to be published)*
-- [ ] Explore `_repository-governance/` to see operational governance in action
-- [ ] Examine a policy template in `policies/ai-acceptable-use/`
-- [ ] Review schemas in `schemas/` to understand documentation structure
-- [ ] Check `docs/crosswalks.md` for your relevant regulatory framework
-- [ ] Join [GitHub Discussions](https://github.com/vintagedon/nist-ai-rmf-cookbook/discussions) to ask questions or share your experience
-- [ ] Consider contributing your own case studies or framework applications
-
----
-
-## 🎯 Closing Thoughts
-
-This isn't a finished product. This is v0.1 of a living system.
-
-We formalized governance for AI tools we were already using productively. We documented decisions we had made informally. We applied frameworks to operational constraints, not aspirational scenarios. We proved it's possible to govern AI systems without grinding development to a halt.
-
-The next phase will show how these frameworks guide decisions about *new* AI capabilities—evaluating Business GPT not just on features and cost, but on risk, controls, and framework alignment.
-
-If you're using AI tools productively but managing them informally, you're where we were three months ago. These templates and frameworks can help you formalize what you're already doing.
-
-If you're building AI governance from scratch, this operational example shows it's achievable with realistic resource constraints. You don't need an army of consultants—you need a systematic approach and the willingness to document as you go.
-
-We're learning as we build. So are you. Let's learn together.
 
 ---
 
@@ -600,34 +319,34 @@ We're learning as we build. So are you. Let's learn together.
 
 This repository is archived and versioned through Zenodo to ensure long-term availability and provide stable citation for academic and professional use.
 
-Version 0.1.0 Citation:
+Version 0.2.0 Citation:
 
-Donald, F. (2025). *NIST AI RMF Cookbook: Operational Templates and Schemas for AI Governance Implementation (0.1)*. Zenodo. <https://doi.org/10.5281/zenodo.17332823>
+Donald, F. (2025). *NIST AI RMF Cookbook: Operational AI Governance Implementation (v0.2)*. Zenodo. <https://doi.org/10.5281/zenodo.PENDING>
 
 Why this matters:
 
-Governance frameworks need stable references. When you cite this work in policies, audit documentation, or research, the DOI ensures the specific version you referenced remains accessible. As we release new versions (v0.2 evaluating Business GPT, v0.3 with automation tools), each gets its own DOI. Your citations stay accurate.
+Governance frameworks need stable references. When you cite this work in policies, audit documentation, or research, the DOI ensures the specific version you referenced remains accessible. As we release new versions, each gets its own DOI. Your citations stay accurate.
 
 When to cite:
 
-- Adapting our policy templates for your organization
-- Using our schemas in your documentation systems
-- Referencing our framework crosswalks in compliance mapping
-- Building on our methodological approach in your research
+- Adapting our policies for your organization
+- Using our model card templates
+- Referencing our framework integration approach
+- Building on our risk assessment methodology
 
 BibTeX:
 
 ```bibtex
-@software{donald_2025_nist_ai_rmf_cookbook,
+@software{donald_2025_nist_ai_rmf_cookbook_v02,
   author       = {Donald, Frederick},
-  title        = {{NIST AI RMF Cookbook: Operational Templates and 
-                   Schemas for AI Governance Implementation}},
+  title        = {{NIST AI RMF Cookbook: Operational AI Governance 
+                   Implementation}},
   month        = oct,
   year         = 2025,
   publisher    = {Zenodo},
-  version      = {0.1.0},
-  doi          = {10.5281/zenodo.17332823},
-  url          = {https://doi.org/10.5281/zenodo.17332823}
+  version      = {0.2.0},
+  doi          = {10.5281/zenodo.PENDING},
+  url          = {https://doi.org/10.5281/zenodo.PENDING}
 }
 ```
 
@@ -638,12 +357,32 @@ BibTeX:
 This repository represents an independent, open-source implementation of AI governance frameworks. It is not endorsed by, affiliated with, or representing the official positions of:
 
 - National Institute of Standards and Technology (NIST)
+- Center for Internet Security (CIS)
 - International Organization for Standardization (ISO)
 - International Electrotechnical Commission (IEC)
-- European Commission
-- Any other standards body or regulatory authority
+- State of Colorado or any regulatory authority
 
 This work demonstrates practical application of publicly available frameworks and standards. Organizations should consult official guidance documents and qualified legal/compliance advisors when implementing AI governance programs. The approaches documented here reflect our specific operational context and should be adapted to your organization's requirements, risk tolerance, and regulatory obligations.
+
+We voluntarily adopted Colorado SB-24-205 requirements as part of proactive governance practice. This demonstrates our commitment to responsible AI deployment and provides concrete operational language for governance implementation, even though we are not legally subject to this regulation.
+
+---
+
+## 🎯 Closing Thoughts
+
+This is v0.2 of a living system.
+
+We went from Azure chaos with scattered AI accounts (v0.1) to operational governance on Google Workspace Enterprise with Gemini automation (v0.2). We formalized what we were already doing, integrated frameworks that work at small-team scale, and documented everything publicly.
+
+The result: Comprehensive AI governance achievable without enterprise budgets or armies of consultants. Just systematic process, framework integration, and willingness to document operational reality.
+
+If you're using AI productively but managing it informally, these templates can help you formalize what you're already doing.
+
+If you're building AI governance from scratch, this operational example proves it's achievable with realistic resource constraints.
+
+If you're evaluating frameworks, our integration approach shows how NIST/CIS-RAM/CIS Controls/Colorado SB-24-205 work together without redundant effort.
+
+We're learning as we build. So are you. Let's learn together.
 
 ---
 
@@ -657,33 +396,29 @@ This work demonstrates practical application of publicly available frameworks an
 
 [3] National Institute of Standards and Technology, "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile," NIST AI 600-1, Jul. 2024. [Online]. Available: <https://doi.org/10.6028/NIST.AI.600-1>
 
-### Supporting Standards and Regulations
+[4] Center for Internet Security, "CIS Controls v8.1," 2024. [Online]. Available: <https://www.cisecurity.org/controls/v8>
 
-[4] International Organization for Standardization, "ISO/IEC 42001:2023 - Information technology — Artificial intelligence — Management system," 2023. [Online]. Available: <https://www.iso.org/standard/81230.html>
+[5] Center for Internet Security, "CIS Risk Assessment Method (CIS RAM)," 2024. [Online]. Available: <https://www.cisecurity.org/insights/white-papers/cis-ram-risk-assessment-method>
 
-[5] International Organization for Standardization, "ISO/IEC 23894:2023 - Information technology — Artificial intelligence — Guidance on risk management," 2023. [Online]. Available: <https://www.iso.org/standard/77304.html>
+[6] Colorado General Assembly, "Senate Bill 24-205: Concerning Consumer Protections in Interactions with Artificial Intelligence Systems," 2024. [Online]. Available: <https://leg.colorado.gov/bills/sb24-205>
 
-[6] National Institute of Standards and Technology, "Security and Privacy Controls for Information Systems and Organizations," NIST Special Publication 800-53, Rev. 5, Sep. 2020. [Online]. Available: <https://doi.org/10.6028/NIST.SP.800-53r5>
+### Supporting Standards
 
-[7] European Commission, "Regulation (EU) 2024/1689 of the European Parliament and of the Council on Artificial Intelligence (AI Act)," Official Journal of the European Union, Jul. 2024. [Online]. Available: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>
+[7] International Organization for Standardization, "ISO/IEC 42001:2023 - Information technology — Artificial intelligence — Management system," 2023. [Online]. Available: <https://www.iso.org/standard/81230.html>
 
-### Technical Resources
+[8] International Organization for Standardization, "ISO/IEC 23894:2023 - Information technology — Artificial intelligence — Guidance on risk management," 2023. [Online]. Available: <https://www.iso.org/standard/77304.html>
 
-[8] OWASP Foundation, "OWASP Top 10 for Large Language Model Applications," v1.1, 2023. [Online]. Available: <https://owasp.org/www-project-top-10-for-large-language-model-applications/>
-
-[9] M. Mitchell et al., "Model Cards for Model Reporting," in Proc. Conference on Fairness, Accountability, and Transparency (FAT* '19), 2019, pp. 220-229. [Online]. Available: <https://doi.org/10.1145/3287560.3287596>
-
-[10] T. Gebru et al., "Datasheets for Datasets," Communications of the ACM, vol. 64, no. 12, pp. 86-92, Dec. 2021. [Online]. Available: <https://doi.org/10.1145/3458723>
+[9] National Institute of Standards and Technology, "Security and Privacy Controls for Information Systems and Organizations," NIST Special Publication 800-53, Rev. 5, Sep. 2020. [Online]. Available: <https://doi.org/10.6028/NIST.SP.800-53r5>
 
 ### This Repository
 
-[11] F. Donald, "NIST AI RMF Cookbook: Operational Templates and Schemas for AI Governance Implementation," v0.1.0, Zenodo, Oct. 2025. [Online]. Available: <https://doi.org/10.5281/zenodo.17332823>
+[10] F. Donald, "NIST AI RMF Cookbook: Operational AI Governance Implementation," v0.2.0, Zenodo, Oct. 2025. [Online]. Available: <https://doi.org/10.5281/zenodo.PENDING>
 
 ---
 
-Document Version: 0.1.0  
-Last Updated: 2025-10-10  
-Framework: NIST AI RMF 1.0  
-Status: Operational  
+Document Version: 0.2.0  
+Last Updated: 2025-10-26  
+Framework: NIST AI RMF 1.0 + CIS-RAM + CIS Controls v8.1 IG1 + Colorado SB-24-205  
+Status: Active Development  
 License: MIT  
 Contact: [GitHub Issues](https://github.com/vintagedon/nist-ai-rmf-cookbook/issues)
