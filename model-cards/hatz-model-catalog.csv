@@ -1,0 +1,51 @@
+Vendor,Model_Name,Intelligence,Speed,Cost_Tier,Vision,Tools,Reasoning,Image_Generation,Card_Available,Card_Used,Deprecation_Status,Suitable_Domains,Version_Ambiguity,Red_Flag,Notes
+Amazon,Amazon Nova Lite,Medium,Fast,Lowest Cost,TRUE,TRUE,FALSE,FALSE,NO,,Active,,FALSE,,Lightweight vision model
+Amazon,Amazon Nova Micro,Low,Fast,Lowest Cost,FALSE,TRUE,TRUE,FALSE,NO,,Active,,FALSE,,Fastest and most efficient model
+Amazon,Amazon Nova Pro,High,Medium,Low Cost,TRUE,TRUE,FALSE,FALSE,NO,,Active,,FALSE,,Flagship model
+Anthropic,Claude 3 Haiku,Medium,Fast,Low Cost,FALSE,TRUE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,"Older version of fastest model, superseded by 3.5 Haiku"
+Anthropic,Claude 3 Sonnet,High,Medium,Medium High Cost,FALSE,TRUE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy general purpose model
+Anthropic,Claude 3.5 Haiku,Medium,Fast,Low Cost,TRUE,FALSE,FALSE,FALSE,NO,,Active,,FALSE,,Current fastest model
+Anthropic,Claude 3.5 Sonnet v2,High,Medium,Lowest Cost,TRUE,TRUE,FALSE,FALSE,NO,,Legacy,,TRUE,LEGACY|COST_ANOMALY|VERSION_AMBIGUITY,"Legacy intelligent model, cost tier anomaly (High Intelligence + Lowest Cost), version naming unclear vs 3.7"
+Anthropic,Claude 3.7 Sonnet,High,Medium,Medium High Cost,TRUE,TRUE,FALSE,FALSE,NO,,Legacy,,TRUE,LEGACY|VERSION_AMBIGUITY,"Legacy flagship, version naming suggests newer than 3.5 v2 but both marked legacy"
+Anthropic,Claude 4 Opus,High,Medium,Premium,TRUE,TRUE,TRUE,FALSE,NO,,Active,,FALSE,,Most intelligent model for complex tasks
+Anthropic,Claude 4 Sonnet,High,Medium,Medium High Cost,TRUE,TRUE,TRUE,FALSE,NO,,Legacy,,FALSE,LEGACY,Previous flagship superseded by Claude 4.5 Sonnet
+Anthropic,Claude 4.5 Sonnet,High,Medium,Medium High Cost,TRUE,TRUE,TRUE,FALSE,YES,anthropic-claude-sonnet-45-model-card.yaml,Active,"general_purpose, code_generation, agentic_tool_use, analysis, multimodal_reasoning",FALSE,,"Newest frontier model with enhanced intelligence and reasoning. Best coding model, strongest for complex agents and computer use."
+DeepSeek,DeepSeek R1,High,Slow,Medium Low Cost,TRUE,FALSE,TRUE,FALSE,YES,deepseek-r1-model-card.yaml,Active,"reasoning_tasks, code_generation, long_context_analysis",FALSE,,Advanced reasoning model (US hosted). MoE 671B total/37B activated parameters.
+Google,Gemini 1.5 Flash,Medium,Fast,Low Cost,TRUE,FALSE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy lightweight model
+Google,Gemini 1.5 Pro,High,Medium,Low Cost,TRUE,FALSE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy general purpose model
+Google,Gemini 2.0 Flash,Medium,Fast,Lowest Cost,TRUE,FALSE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy efficient intelligent model superseded by Gemini 2.5
+Google,Gemini 2.0 Flash Lite,High,Fast,Lowest Cost,TRUE,FALSE,FALSE,FALSE,NO,,Legacy,,TRUE,LEGACY|COST_ANOMALY,"Legacy lightweight model superseded by Gemini 2.5, cost/intelligence tier mismatch (High Intelligence + Lowest Cost)"
+Google,Gemini 2.5 Flash,Medium,Fast,Lowest Cost,TRUE,TRUE,FALSE,FALSE,YES,google-gemini-25-flash-model-card.yaml,Active,"enterprise_assistants, conversational_ai, content_summarization, multimodal_analysis",FALSE,,Fastest and most cost-effective model. First fully hybrid reasoning model with thinking budgets.
+Google,Gemini 2.5 Flash Image (Nano Banana),Medium,Fast,Low Cost,TRUE,FALSE,FALSE,TRUE,NO,,Active,,FALSE,,"Nano Banana model for fast image generation and editing, unique naming"
+Google,Gemini 2.5 Pro,High,Fast,Medium High Cost,TRUE,TRUE,TRUE,FALSE,YES,google-gemini-25-pro-model-card.yaml,Active,"general_purpose, multimodal_reasoning, code_generation, data_analysis, research",FALSE,,Most capable model for complex reasoning. World-leading on WebDev Arena and LMArena leaderboards.
+Meta,Llama 3.1 70B Instruct,Medium,Fast,Medium Low Cost,FALSE,FALSE,FALSE,FALSE,NO,,Deprecated,,FALSE,DEPRECATED,Outdated version of Llama
+Meta,Llama 3.1 8B Instruct,Medium,Medium,Lowest Cost,FALSE,FALSE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy lightweight instruction-tuned model
+Meta,Llama 3.2 11B Instruct,High,Slow,Medium Low Cost,TRUE,FALSE,FALSE,FALSE,NO,,Active,,FALSE,,Excels at understanding and describing images
+Meta,Llama 3.2 1B Instruct,Medium,Fast,Medium Low Cost,FALSE,FALSE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy instruction-tuned model
+Meta,Llama 4 Maverick 17B Instruct,High,Fast,Lowest Cost,TRUE,TRUE,FALSE,FALSE,NO,,Active,,TRUE,COST_ANOMALY,"Advanced instruction-tuned model with vision, cost tier anomaly (High Intelligence + Lowest Cost)"
+Meta,Llama 4 Scout 17B Instruct,High,Fast,High Cost,TRUE,TRUE,FALSE,FALSE,NO,,Active,,TRUE,COST_ANOMALY|VERSION_AMBIGUITY,"Efficient scout model with vision, cost tier mismatch vs Maverick (both High/Fast but Scout = High Cost, Maverick = Lowest Cost)"
+Mistral,Mistral 7B Instruct,Low,Medium,Lowest Cost,FALSE,FALSE,FALSE,FALSE,NO,,Active,,FALSE,,Lightweight instruct model
+Mistral,Mistral 8x7B Instruct,Medium,Fast,Lowest Cost,FALSE,FALSE,FALSE,FALSE,NO,,Active,,FALSE,,Mixture of experts instruct model
+Mistral,Mistral Large,High,Medium,Medium High Cost,FALSE,FALSE,FALSE,FALSE,NO,,Active,,FALSE,,Most advanced model from Mistral AI
+OpenAI,GPT 3.5 Turbo,Medium,Fast,Low Cost,FALSE,TRUE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy flagship model
+OpenAI,GPT 4,High,Medium,High Cost,FALSE,TRUE,FALSE,FALSE,NO,,Deprecated,,FALSE,DEPRECATED,Deprecated GPT model
+OpenAI,GPT 4.5 Preview,High,Medium,Premium,TRUE,TRUE,FALSE,FALSE,NO,,Deprecated,,FALSE,DEPRECATED,Legacy flagship model deprecated in favor of newer models
+OpenAI,GPT 4O,High,Medium,Medium Low Cost,TRUE,TRUE,FALSE,TRUE,NO,,Legacy,,FALSE,LEGACY,Previous generation flagship model superseded by GPT-5
+OpenAI,GPT-4.1,High,Medium,Medium Low Cost,TRUE,TRUE,FALSE,TRUE,NO,,Legacy,,FALSE,LEGACY,Previous generation flagship model superseded by GPT-5
+OpenAI,GPT-4.1 Mini,Medium,Fast,Low Cost,TRUE,TRUE,FALSE,TRUE,NO,,Legacy,,FALSE,LEGACY,Previous generation efficient model superseded by GPT-5 Mini
+OpenAI,GPT-4.1 Nano,Medium,Fast,Lowest Cost,TRUE,TRUE,FALSE,TRUE,NO,,Legacy,,FALSE,LEGACY,Previous generation lightweight model superseded by GPT-5 Nano
+OpenAI,GPT-5,High,Medium,Medium Low Cost,TRUE,TRUE,TRUE,TRUE,YES,openai-gpt-5-model-card.yaml,Active,"general_purpose, code_generation, analysis, multimodal_reasoning, agentic_tool_use",FALSE,,Flagship GPT-5 model with advanced capabilities. Reduced hallucinations, strongest for coding and agentic tool use.
+OpenAI,GPT-5 Chat,High,Medium,Medium Low Cost,TRUE,TRUE,FALSE,FALSE,NO,,Active,,TRUE,VERSION_AMBIGUITY,"Latest GPT-5 chat model with most recent updates, unclear differentiation from base GPT-5"
+OpenAI,GPT-5 Mini,Medium,Fast,Low Cost,TRUE,TRUE,TRUE,FALSE,NO,,Active,,FALSE,,Efficient GPT-5 Mini model optimized for speed
+OpenAI,GPT-5 Nano,Medium,Fast,Lowest Cost,TRUE,TRUE,TRUE,TRUE,NO,,Active,,TRUE,COST_ANOMALY,"Ultra-efficient GPT-5 Nano for lightweight tasks, cost/capability anomaly (has Image Gen + Reasoning at Lowest Cost)"
+OpenAI,o1,High,Slow,High Cost,FALSE,TRUE,TRUE,FALSE,NO,,Active,,FALSE,,Original reasoning model from OpenAI
+OpenAI,o3,High,Slow,High Cost,TRUE,TRUE,TRUE,TRUE,NO,,Active,,FALSE,,Most powerful reasoning model from OpenAI
+OpenAI,o3 mini,Medium,Medium,Medium Low Cost,FALSE,TRUE,TRUE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy efficient reasoning model superseded by o4-mini
+OpenAI,o4 mini,High,Medium,Medium Low Cost,TRUE,TRUE,TRUE,FALSE,NO,,Active,,FALSE,,"Faster, more affordable reasoning model"
+xAI,Grok 2,Medium,Medium,Medium Low Cost,FALSE,TRUE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy flagship model from xAI
+xAI,Grok 2 Vision,Medium,Medium,Medium Low Cost,TRUE,TRUE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Legacy vision model from xAI
+xAI,Grok 3,High,Medium,Medium High Cost,FALSE,TRUE,FALSE,FALSE,NO,,Legacy,,FALSE,LEGACY,Previous generation high-performance language model
+xAI,Grok 3 Fast,Medium,Fast,Medium High Cost,FALSE,TRUE,FALSE,FALSE,NO,,Legacy,,TRUE,LEGACY|COST_ANOMALY,"Previous generation with extra speed, cost tier mismatch (Medium Intelligence at Medium High Cost)"
+xAI,Grok 3 Mini,Medium,Fast,Lowest Cost,FALSE,TRUE,FALSE,FALSE,NO,,Active,,FALSE,,Lightweight reasoning model from xAI
+xAI,Grok 3 Mini Fast,Medium,Fast,High Cost,FALSE,TRUE,FALSE,FALSE,NO,,Active,,TRUE,COST_ANOMALY|VERSION_AMBIGUITY,"Lightweight reasoning model, extreme cost anomaly vs Grok 3 Mini (identical specs but High Cost vs Lowest Cost)"
+xAI,Grok 4,High,Medium,Medium High Cost,TRUE,TRUE,TRUE,FALSE,NO,,Active,,FALSE,,"Latest flagship model offering unparalleled performance in natural language"
